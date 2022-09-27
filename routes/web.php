@@ -17,7 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'register']);
-Route::get('/product', [ProductController::class, 'index']);
+
+Route::group(['prefix' => 'products', 'as' => 'product.'], function () {
+    Route::get('/', [ProductController::class, 'index']);
+    Route::get('/create', [ProductController::class, 'create'])->name('create');
+    Route::post('/create', [ProductController::class, 'store'])->name('store');
+});
+
 Route::get('/admin', function () {
     return view('layout.master');
 });

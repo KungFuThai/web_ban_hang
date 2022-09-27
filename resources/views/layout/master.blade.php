@@ -8,7 +8,7 @@
     <meta content="Coderthemes" name="author">
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico">
-
+    @stack('css')
     <!-- App css -->
     <link href="{{ asset('css/icons.min.css') }}" rel="stylesheet" type="text/css">
     {{-- <link href="{{ asset('css/app-creative.min.css') }}" rel="stylesheet" type="text/css"> --}}
@@ -57,12 +57,10 @@
 
     </div>
     <!-- END wrapper -->
-
-
-
     <!-- bundle -->
     <script src="{{ asset('js/vendor.min.js') }}"></script>
     <script src="{{ asset('js/app.min.js') }}"></script>
+    @stack('js')
 </body>
 
 </html>

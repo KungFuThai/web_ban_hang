@@ -19,7 +19,6 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->string('image');
             $table->float('price')->nullable();
-            $table->float('vote')->nullable();
             $table->string('slug')->unique();
             $table->foreignId('producer_id')->constrained();
             $table->foreignId('category_id')->constrained();

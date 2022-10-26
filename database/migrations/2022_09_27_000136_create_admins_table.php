@@ -20,8 +20,7 @@ class CreateAdminsTable extends Migration
             $table->boolean('gender')->nullable()->default(false);
             $table->string('phone')->nullable();
             $table->integer('level')->nullable();
-            $table->float('wage')->nullable();
-            $table->string('user_name')->nullable();
+            $table->string('email')->nullable();
             $table->string('password')->nullable();
             $table->string('token')->nullable();
             $table->timestamps();

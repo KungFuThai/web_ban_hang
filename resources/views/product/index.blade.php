@@ -1,7 +1,10 @@
 @extends('layout.master');
 @push('css')
-    <link href="{{ asset('css/vendor/dataTables.bootstrap4.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('css/vendor/responsive.bootstrap4.css') }}" rel="stylesheet" type="text/css">
+{{--    <link href="{{ asset('css/vendor/dataTables.bootstrap4.css') }}" rel="stylesheet" type="text/css">--}}
+{{--    <link href="{{ asset('css/vendor/responsive.bootstrap4.css') }}" rel="stylesheet" type="text/css">--}}
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/date-1.1.2/fc-4.1.0/fh-3.2.4/r-2.3.0/rg-1.2.0/sc-2.0.7/sb-1.3.4/sl-1.4.0/datatables.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 @endpush
 @section('content')
     <div class="container-fluid">
@@ -28,7 +31,7 @@
                     <div class="card-body">
                         <div class="row mb-2">
                             <div class="col-sm-4">
-                                <a href="{{ route('product.create') }}" class="btn btn-danger mb-2">
+                            <a href="{{--{{ route('product.create') }}--}}" class="btn btn-danger mb-2">
                                     <i class="mdi mdi-plus-circle mr-2"></i>
                                     Add Product
                                 </a>
@@ -43,336 +46,22 @@
                             </div><!-- end col-->
                         </div>
 
-                        <div class="table-responsive">
-                            <div id="products-datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="dataTables_length" id="products-datatable_length"><label>Display <select
-                                                    class="custom-select custom-select-sm ml-1 mr-1">
-                                                    <option value="5">5</option>
-                                                    <option value="10">10</option>
-                                                    <option value="20">20</option>
-                                                    <option value="-1">All</option>
-                                                </select> products</label></div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <div id="products-datatable_filter" class="dataTables_filter"><label>Search:<input
-                                                    type="search" class="form-control form-control-sm" placeholder=""
-                                                    aria-controls="products-datatable"></label></div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <table
-                                            class="table table-centered w-100 dt-responsive nowrap dataTable no-footer dtr-inline"
-                                            id="products-datatable" role="grid"
-                                            aria-describedby="products-datatable_info" style="width: 1526px;">
-                                            <thead class="thead-light">
-                                                <tr role="row">
-                                                    <th class="all dt-checkboxes-cell dt-checkboxes-select-all sorting_disabled"
-                                                        style="width: 28.6px;" rowspan="1" colspan="1" data-col="0"
-                                                        aria-label="
-                                                            
-                                                                
-                                                                &amp;nbsp;
-                                                            
-                                                        ">
-                                                        <div class="custom-control custom-checkbox"><input type="checkbox"
-                                                                class="custom-control-input dt-checkboxes"><label
-                                                                class="custom-control-label">&nbsp;</label></div>
-                                                    </th>
-                                                    <th class="all sorting_asc" tabindex="0"
-                                                        aria-controls="products-datatable" rowspan="1" colspan="1"
-                                                        style="width: 420.8px;" aria-sort="ascending"
-                                                        aria-label="Product: activate to sort column descending">Product
-                                                    </th>
-                                                    <th class="sorting" tabindex="0" aria-controls="products-datatable"
-                                                        rowspan="1" colspan="1" style="width: 177.8px;"
-                                                        aria-label="Category: activate to sort column ascending">Category
-                                                    </th>
-                                                    <th class="sorting" tabindex="0" aria-controls="products-datatable"
-                                                        rowspan="1" colspan="1" style="width: 160.8px;"
-                                                        aria-label="Added Date: activate to sort column ascending">Added
-                                                        Date</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="products-datatable"
-                                                        rowspan="1" colspan="1" style="width: 95.8px;"
-                                                        aria-label="Price: activate to sort column ascending">Price</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="products-datatable"
-                                                        rowspan="1" colspan="1" style="width: 124.8px;"
-                                                        aria-label="Quantity: activate to sort column ascending">Quantity
-                                                    </th>
-                                                    <th class="sorting" tabindex="0" aria-controls="products-datatable"
-                                                        rowspan="1" colspan="1" style="width: 99.8px;"
-                                                        aria-label="Status: activate to sort column ascending">Status</th>
-                                                    <th style="width: 85.6px;" class="sorting_disabled" rowspan="1"
-                                                        colspan="1" aria-label="Action">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr role="row" class="odd">
-                                                    <td class="dt-checkboxes-cell" tabindex="0">
-                                                        <div class="custom-control custom-checkbox"><input type="checkbox"
-                                                                class="custom-control-input dt-checkboxes"><label
-                                                                class="custom-control-label">&nbsp;</label></div>
-                                                    </td>
-                                                    <td class="sorting_1">
-                                                        <img src="assets/images/products/product-6.jpg" alt="contact-img"
-                                                            title="contact-img" class="rounded mr-3" height="48">
-                                                        <p class="m-0 d-inline-block align-middle font-16">
-                                                            <a href="apps-ecommerce-products-details.html"
-                                                                class="text-body">Adirondack Chair</a>
-                                                            <br>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                        </p>
-                                                    </td>
-                                                    <td>
-                                                        Aeron Chairs
-                                                    </td>
-                                                    <td>
-                                                        07/07/2018
-                                                    </td>
-                                                    <td>
-                                                        $65.94
-                                                    </td>
-
-                                                    <td>
-                                                        652
-                                                    </td>
-                                                    <td>
-                                                        <span class="badge badge-success">Active</span>
-                                                    </td>
-
-                                                    <td class="table-action">
-                                                        <a href="javascript:void(0);" class="action-icon"> <i
-                                                                class="mdi mdi-eye"></i></a>
-                                                        <a href="javascript:void(0);" class="action-icon"> <i
-                                                                class="mdi mdi-square-edit-outline"></i></a>
-                                                        <a href="javascript:void(0);" class="action-icon"> <i
-                                                                class="mdi mdi-delete"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr role="row" class="even">
-                                                    <td tabindex="0" class="dt-checkboxes-cell">
-                                                        <div class="custom-control custom-checkbox"><input type="checkbox"
-                                                                class="custom-control-input dt-checkboxes"><label
-                                                                class="custom-control-label">&nbsp;</label></div>
-                                                    </td>
-                                                    <td class="sorting_1">
-                                                        <img src="assets/images/products/product-1.jpg" alt="contact-img"
-                                                            title="contact-img" class="rounded mr-3" height="48">
-                                                        <p class="m-0 d-inline-block align-middle font-16">
-                                                            <a href="apps-ecommerce-products-details.html"
-                                                                class="text-body">Amazing Modern Chair</a>
-                                                            <br>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                        </p>
-                                                    </td>
-                                                    <td>
-                                                        Aeron Chairs
-                                                    </td>
-                                                    <td>
-                                                        09/12/2018
-                                                    </td>
-                                                    <td>
-                                                        $148.66
-                                                    </td>
-
-                                                    <td>
-                                                        254
-                                                    </td>
-                                                    <td>
-                                                        <span class="badge badge-success">Active</span>
-                                                    </td>
-
-                                                    <td class="table-action">
-                                                        <a href="javascript:void(0);" class="action-icon"> <i
-                                                                class="mdi mdi-eye"></i></a>
-                                                        <a href="javascript:void(0);" class="action-icon"> <i
-                                                                class="mdi mdi-square-edit-outline"></i></a>
-                                                        <a href="javascript:void(0);" class="action-icon"> <i
-                                                                class="mdi mdi-delete"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr role="row" class="odd">
-                                                    <td class="dt-checkboxes-cell" tabindex="0">
-                                                        <div class="custom-control custom-checkbox"><input type="checkbox"
-                                                                class="custom-control-input dt-checkboxes"><label
-                                                                class="custom-control-label">&nbsp;</label></div>
-                                                    </td>
-                                                    <td class="sorting_1">
-                                                        <img src="assets/images/products/product-2.jpg" alt="contact-img"
-                                                            title="contact-img" class="rounded mr-3" height="48">
-                                                        <p class="m-0 d-inline-block align-middle font-16">
-                                                            <a href="apps-ecommerce-products-details.html"
-                                                                class="text-body">Bean Bag Chair</a>
-                                                            <br>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                        </p>
-                                                    </td>
-                                                    <td>
-                                                        Wooden Chairs
-                                                    </td>
-                                                    <td>
-                                                        06/30/2018
-                                                    </td>
-                                                    <td>
-                                                        $99
-                                                    </td>
-
-                                                    <td>
-                                                        1,021
-                                                    </td>
-                                                    <td>
-                                                        <span class="badge badge-danger">Deactive</span>
-                                                    </td>
-                                                    <td class="table-action">
-                                                        <a href="javascript:void(0);" class="action-icon"> <i
-                                                                class="mdi mdi-eye"></i></a>
-                                                        <a href="javascript:void(0);" class="action-icon"> <i
-                                                                class="mdi mdi-square-edit-outline"></i></a>
-                                                        <a href="javascript:void(0);" class="action-icon"> <i
-                                                                class="mdi mdi-delete"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr role="row" class="even">
-                                                    <td tabindex="0" class="dt-checkboxes-cell">
-                                                        <div class="custom-control custom-checkbox"><input type="checkbox"
-                                                                class="custom-control-input dt-checkboxes"><label
-                                                                class="custom-control-label">&nbsp;</label></div>
-                                                    </td>
-                                                    <td class="sorting_1">
-                                                        <img src="assets/images/products/product-4.jpg" alt="contact-img"
-                                                            title="contact-img" class="rounded mr-3" height="48">
-                                                        <p class="m-0 d-inline-block align-middle font-16">
-                                                            <a href="apps-ecommerce-products-details.html"
-                                                                class="text-body">Biblio Plastic Armchair</a>
-                                                            <br>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                            <span class="text-warning mdi mdi-star-half"></span>
-                                                        </p>
-                                                    </td>
-                                                    <td>
-                                                        Wooden Chairs
-                                                    </td>
-                                                    <td>
-                                                        09/08/2018
-                                                    </td>
-                                                    <td>
-                                                        $8.99
-                                                    </td>
-
-                                                    <td>
-                                                        1,874
-                                                    </td>
-                                                    <td>
-                                                        <span class="badge badge-success">Active</span>
-                                                    </td>
-                                                    <td class="table-action">
-                                                        <a href="javascript:void(0);" class="action-icon"> <i
-                                                                class="mdi mdi-eye"></i></a>
-                                                        <a href="javascript:void(0);" class="action-icon"> <i
-                                                                class="mdi mdi-square-edit-outline"></i></a>
-                                                        <a href="javascript:void(0);" class="action-icon"> <i
-                                                                class="mdi mdi-delete"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr role="row" class="odd">
-                                                    <td class="dt-checkboxes-cell" tabindex="0">
-                                                        <div class="custom-control custom-checkbox"><input type="checkbox"
-                                                                class="custom-control-input dt-checkboxes"><label
-                                                                class="custom-control-label">&nbsp;</label></div>
-                                                    </td>
-                                                    <td class="sorting_1">
-                                                        <img src="assets/images/products/product-3.jpg" alt="contact-img"
-                                                            title="contact-img" class="rounded mr-3" height="48">
-                                                        <p class="m-0 d-inline-block align-middle font-16">
-                                                            <a href="apps-ecommerce-products-details.html"
-                                                                class="text-body">Bootecos Plastic Armchair</a>
-                                                            <br>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                            <span class="text-warning mdi mdi-star"></span>
-                                                            <span class="text-warning mdi mdi-star-half"></span>
-                                                        </p>
-                                                    </td>
-                                                    <td>
-                                                        Wing Chairs
-                                                    </td>
-                                                    <td>
-                                                        07/15/2018
-                                                    </td>
-                                                    <td>
-                                                        $148.66
-                                                    </td>
-
-                                                    <td>
-                                                        485
-                                                    </td>
-                                                    <td>
-                                                        <span class="badge badge-danger">Deactive</span>
-                                                    </td>
-
-                                                    <td class="table-action">
-                                                        <a href="javascript:void(0);" class="action-icon"> <i
-                                                                class="mdi mdi-eye"></i></a>
-                                                        <a href="javascript:void(0);" class="action-icon"> <i
-                                                                class="mdi mdi-square-edit-outline"></i></a>
-                                                        <a href="javascript:void(0);" class="action-icon"> <i
-                                                                class="mdi mdi-delete"></i></a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-5">
-                                        <div class="dataTables_info" id="products-datatable_info" role="status"
-                                            aria-live="polite">Showing products 1 to 5 of 12</div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-7">
-                                        <div class="dataTables_paginate paging_simple_numbers"
-                                            id="products-datatable_paginate">
-                                            <ul class="pagination pagination-rounded">
-                                                <li class="paginate_button page-item previous disabled"
-                                                    id="products-datatable_previous"><a href="#"
-                                                        aria-controls="products-datatable" data-dt-idx="0" tabindex="0"
-                                                        class="page-link"><i class="mdi mdi-chevron-left"></i></a></li>
-                                                <li class="paginate_button page-item active"><a href="#"
-                                                        aria-controls="products-datatable" data-dt-idx="1" tabindex="0"
-                                                        class="page-link">1</a></li>
-                                                <li class="paginate_button page-item "><a href="#"
-                                                        aria-controls="products-datatable" data-dt-idx="2" tabindex="0"
-                                                        class="page-link">2</a></li>
-                                                <li class="paginate_button page-item "><a href="#"
-                                                        aria-controls="products-datatable" data-dt-idx="3" tabindex="0"
-                                                        class="page-link">3</a></li>
-                                                <li class="paginate_button page-item next" id="products-datatable_next"><a
-                                                        href="#" aria-controls="products-datatable" data-dt-idx="4"
-                                                        tabindex="0" class="page-link"><i
-                                                            class="mdi mdi-chevron-right"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                          <div class="table-responsive">
+                                <table id="product_table" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Image</th>
+                                            <th>Description</th>
+                                            <th>Price</th>
+                                            <th>Created At</th>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                          </div>
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
             </div> <!-- end col -->
@@ -382,9 +71,31 @@
     </div>
 @endsection
 @push('js')
-    <script src="{{ asset('js/vendor/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('js/vendor/dataTables.bootstrap4.js') }}"></script>
-    <script src="{{ asset('js/vendor/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('js/vendor/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('js/vendor/dataTables.checkboxes.min.js') }}"></script>
+{{--    <script src="{{ asset('js/vendor/jquery.dataTables.min.js') }}"></script>--}}
+{{--    <script src="{{ asset('js/vendor/dataTables.bootstrap4.js') }}"></script>--}}
+{{--    <script src="{{ asset('js/vendor/dataTables.responsive.min.js') }}"></script>--}}
+{{--    <script src="{{ asset('js/vendor/responsive.bootstrap4.min.js') }}"></script>--}}
+{{--    <script src="{{ asset('js/vendor/dataTables.checkboxes.min.js') }}"></script>--}}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/date-1.1.2/fc-4.1.0/fh-3.2.4/r-2.3.0/rg-1.2.0/sc-2.0.7/sb-1.3.4/sl-1.4.0/datatables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(function() {
+            $('#product_table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{!! route('products.api') !!}',
+                columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'name', name: 'name' },
+                    { data: 'image', name: 'image' },
+                    { data: 'description', name: 'description' },
+                    { data: 'price', name: 'price' },
+                    { data: 'created_at', name: 'updated_at' }
+                ]
+            });
+        });
+    </script>
 @endpush

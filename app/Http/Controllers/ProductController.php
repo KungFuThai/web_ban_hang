@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Yajra\DataTables\DataTables;
 
 class ProductController extends Controller
 {
@@ -15,11 +16,19 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::get();
-
-        return view('product.index', [
-            'products' => $products,
-        ]);
+        return view('product.index');
+    }
+    public function api()
+    {
+        $producs = Product::select(['id', 'name', 'image', 'description', 'price', 'created_at']);
+        return DataTables::of(Product::query())
+            ->editColumn('created_at', function ($producs) {
+                return $producs->created_at->format('d/m/Y');
+            })
+            ->filterColumn('updated_at', function ($query, $keyword) {
+                $query->whereRaw("DATE_FORMAT(updated_at,'%Y/%m/%d') like ?", ["%$keyword%"]);
+            })
+            ->make(true);
     }
 
     /**

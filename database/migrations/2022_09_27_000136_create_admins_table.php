@@ -17,6 +17,7 @@ class CreateAdminsTable extends Migration
             $table->id();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
+            $table->string('avatar')->nullable();
             $table->boolean('gender')->nullable()->default(false);
             $table->string('phone')->nullable();
             $table->integer('level')->nullable();

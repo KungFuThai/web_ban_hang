@@ -20,8 +20,8 @@ class CreateProductsTable extends Migration
             $table->string('image');
             $table->float('price')->nullable();
             $table->string('slug')->unique();
-            $table->foreignId('producer_id')->constrained();
-            $table->foreignId('category_id')->constrained();
+            $table->foreignId('producer_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

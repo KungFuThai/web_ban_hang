@@ -22,9 +22,9 @@
                     <div class="card-body">
                         <div class="row mb-2">
                             <div class="col-sm-4">
-                            <a href="{{ route('products.create') }}" class="btn btn-danger mb-2">
+                                <a href="{{ route('producers.create') }}" class="btn btn-danger mb-2">
                                     <i class="mdi mdi-plus-circle mr-2"></i>
-                                    Add Product
+                                    Add Producer
                                 </a>
                             </div>
                             <div class="col-sm-8">
@@ -37,24 +37,21 @@
                             </div><!-- end col-->
                         </div>
 
-                          <div class="table-responsive">
-                                <table id="product_table" class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Name</th>
-                                            <th>Image</th>
-                                            <th>Description</th>
-                                            <th>Price</th>
-                                            <th>Category</th>
-                                            <th>Producer</th>
-                                            <th>Created At</th>
-                                            <th>Edit</th>
-                                            <th>Delete</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                          </div>
+                        <div class="table-responsive">
+                            <table id="producer_table" class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Phone</th>
+                                    <th>Address</th>
+                                    <th>Created At</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
             </div> <!-- end col -->
@@ -72,23 +69,20 @@
     <script>
         $(function() {
 
-            let table = $('#product_table').DataTable({
+            let table = $('#producer_table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{!! route('products.api') !!}',
+                ajax: '{!! route('producers.api') !!}',
                 columns: [
                     { data: 'id', name: 'id' },
                     { data: 'name', name: 'name' },
-                    { data: 'image', name: 'image' },
-                    { data: 'description', name: 'description' },
-                    { data: 'price', name: 'price' },
-                    { data: 'category', name: 'category' },
-                    { data: 'producer', name: 'produder' },
+                    { data: 'phone', name: 'phone' },
+                    { data: 'address', name: 'address' },
                     { data: 'created_at', name: 'created_at' },
                     { data: 'edit', name: 'edit',
                         orderable: false,
                         searchable: false,
-                        render: function (data, type, row, meta) {
+                        render: function (data) {
                             return `<a class="btn btn-primary" href="${data}">Edit</a>`
                         }
                     },
@@ -96,12 +90,12 @@
                         data: 'destroy', name: 'delete',
                         orderable: false,
                         searchable: false,
-                        render: function (data, type, row, meta) {
+                        render: function (data) {
                             return `<form method="post" action="${data}">
                                     @csrf
-                                    @method('DELETE')
-                                    <button type="button" class="btn-delete btn btn-danger">Delete</button>
-                                </form>`
+                            @method('DELETE')
+                            <button type="button" class="btn-delete btn btn-danger">Delete</button>
+                        </form>`
                         }
                     },
                 ]
@@ -125,4 +119,3 @@
         });
     </script>
 @endpush
-

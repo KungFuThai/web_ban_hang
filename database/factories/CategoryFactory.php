@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Producer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CategoryFactory extends Factory
@@ -14,7 +15,8 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'producer_id' => Producer::query()->inRandomOrder()->value('id'),
         ];
     }
 }

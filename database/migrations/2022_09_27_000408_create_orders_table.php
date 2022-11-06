@@ -19,8 +19,8 @@ class CreateOrdersTable extends Migration
             $table->string('phone_receiver')->nullable();
             $table->string('address_receiver')->nullable();
             $table->integer('status')->nullable();
-            $table->foreignId('admin_id')->constrained();
-            $table->foreignId('customer_id')->constrained();
+            $table->foreignId('admin_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('customer_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

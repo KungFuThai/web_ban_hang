@@ -5,82 +5,79 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
+use Yajra\DataTables\DataTables;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private Builder $model;
+    public function __construct()
+    {
+        $this->model = (new Category())->query();
+
+        $routeName = Route::currentRouteName();
+        $arr    = explode('.', $routeName); //cắt chuỗi
+        $arr    = array_map('ucfirst', $arr); // viết hoa chữ cái đầu
+        $title  = implode(' - ', $arr); // nối nhau bằng dấu '-'
+
+        View::share('title', $title); //chia sẻ title đến mọi nơi trong controller
+    }
     public function index()
     {
-        //
+        return view('category.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function api()
+    {
+        return DataTables::of($this->model->with('producer'))
+            ->editColumn('created_at', function ($object) {
+                return $object->created_at->format('d/m/Y');
+            })
+            ->addColumn('edit', function($object) {
+                return route('categories.edit', $object); //server side rendering
+            })
+            ->addColumn('destroy', function($object) {
+                return route('categories.destroy', $object); //client side rendering
+            })
+            ->addColumn('producer', function($object) {
+                return $object->producer->name;
+            })
+
+
+            ->make(true);
+    }
+
     public function create()
     {
-        //
+        return view('category.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreCategoryRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreCategoryRequest $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Category $category)
     {
-        //
+        return view('category.edit');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateCategoryRequest  $request
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        $arr = [];
+        $arr['status'] = true;
+        $arr['message'] = '';
+
+        return response( $arr, 200);
     }
 }

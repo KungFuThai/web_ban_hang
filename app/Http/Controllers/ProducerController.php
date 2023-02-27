@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Producer\DestroyRequest;
+use App\Http\Requests\Producer\StoreRequest;
+use App\Http\Requests\Producer\UpdateRequest;
 use App\Models\Producer;
-use App\Http\Requests\StoreProducerRequest;
-use App\Http\Requests\UpdateProducerRequest;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
@@ -55,27 +56,33 @@ class ProducerController extends Controller
         return view('producer.create');
     }
 
-    public function store(StoreProducerRequest $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $this->model->create($request->validated());
+
+        return redirect()->route('producers.index');
     }
 
 
     public function edit(Producer $producer)
     {
         return view('producer.edit', [
-            'producer' => $producer,
+            'each' => $producer,
         ]);
     }
 
-    public function update(UpdateProducerRequest $request, Producer $producer)
+    public function update(UpdateRequest $request,$producerId)
     {
-        //
+        $this->model->where('id', $producerId)->update(
+               $request->validated()
+        );
+
+        return redirect()->route('producers.index');
     }
 
-    public function destroy(Producer $producer)
+    public function destroy(DestroyRequest $request,$producerId)
     {
-        $producer->delete();
+        $this->model->where('id', $producerId)->delete();
 
         $arr = [];
         $arr['status'] = true;

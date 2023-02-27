@@ -27,16 +27,7 @@
                                     Add Producer
                                 </a>
                             </div>
-                            <div class="col-sm-8">
-                                <div class="text-sm-right">
-                                    <button type="button" class="btn btn-success mb-2 mr-1"><i
-                                            class="mdi mdi-settings"></i></button>
-                                    <button type="button" class="btn btn-light mb-2 mr-1">Import</button>
-                                    <button type="button" class="btn btn-light mb-2">Export</button>
-                                </div>
-                            </div><!-- end col-->
                         </div>
-
                         <div class="table-responsive">
                             <table id="producer_table" class="table table-bordered">
                                 <thead>
@@ -72,6 +63,8 @@
             let table = $('#producer_table').DataTable({
                 processing: true,
                 serverSide: true,
+                scrollY: 400,
+                lengthMenu: [5, 10, 20, 'All'],
                 ajax: '{!! route('producers.api') !!}',
                 columns: [
                     { data: 'id', name: 'id' },

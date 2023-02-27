@@ -11,9 +11,8 @@
     @stack('css')
     <!-- App css -->
     <link href="{{ asset('css/icons.min.css') }}" rel="stylesheet" type="text/css">
-    {{-- <link href="{{ asset('css/app-creative.min.css') }}" rel="stylesheet" type="text/css"> --}}
-    <link href="{{ asset('css/app-creative-dark.min.css') }}" rel="stylesheet" type="text/css">
-
+     <link href="{{ asset('css/app-creative.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
 </head>
 
 <body class=""

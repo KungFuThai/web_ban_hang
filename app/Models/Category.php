@@ -10,6 +10,11 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'producer_id',
+    ];
+
     public function producer(): BelongsTo
     {
         return $this->BelongsTo(Producer::class);

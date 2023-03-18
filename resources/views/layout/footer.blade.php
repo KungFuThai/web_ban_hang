@@ -1,7 +1,7 @@
-<footer class="footer">
+<footer class="footer position-static" style="margin-left: 260px; margin-bottom: 10px">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6" >
                 2022
                 @if (date('Y') != 2022)
                     - {{ date('Y') }}

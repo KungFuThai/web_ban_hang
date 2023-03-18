@@ -25,8 +25,7 @@ class CategoryController extends Controller
         $arr = array_map('ucfirst', $arr); // viết hoa chữ cái đầu
         $title = implode(' - ', $arr); // nối nhau bằng dấu '-'
 
-        View::share('title',
-            $title); //chia sẻ title đến mọi nơi trong controller
+        View::share('title', $title); //chia sẻ title đến mọi nơi trong controller
     }
 
     public function index()
@@ -36,13 +35,13 @@ class CategoryController extends Controller
 
     public function api()
     {
-        return DataTables::of($this->model->with('producer'))
+        return DataTables::of($this->model->with('producer:id,name'))
             ->editColumn('created_at', function ($object) {
                 return $object->created_at->format('d/m/Y');
             })
             ->addColumn('edit', function ($object) {
                 return route('categories.edit',
-                    $object); //server side rendering
+                    $object);
             })
             ->addColumn('destroy', function ($object) {
                 return route('categories.destroy',
@@ -57,9 +56,10 @@ class CategoryController extends Controller
     public function create()
     {
         $producers = Producer::query()->get();
+
         return view('category.create', [
             'producers' => $producers,
-            ],
+        ],
         );
     }
 
@@ -67,14 +67,15 @@ class CategoryController extends Controller
     {
         $this->model->create($request->validated());
 
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.index')->with('success', 'Thêm loại sản phẩm thành công');
     }
 
     public function edit(Category $category)
     {
         $producers = Producer::query()->get();
+
         return view('category.edit', [
-            'each' => $category,
+            'each'      => $category,
             'producers' => $producers,
         ]);
     }
@@ -86,17 +87,13 @@ class CategoryController extends Controller
             $request->validated()
         );
 
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.index')->with('success', 'Cập nhật loại sản phẩm thành công');
     }
 
     public function destroy(DestroyRequest $request, $categoryId)
     {
         $this->model->where('id', $categoryId)->delete();
 
-        $arr = [];
-        $arr['status'] = true;
-        $arr['message'] = '';
-
-        return response($arr, 200);
+        return redirect()->back()->with('success', 'Xoá loại sản phẩm thành công!');
     }
 }

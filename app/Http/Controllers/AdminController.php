@@ -2,85 +2,101 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Admin\StoreRequest;
+use App\Http\Requests\Admin\UpdateRequest;
 use App\Models\Admin;
-use App\Http\Requests\StoreAdminRequest;
-use App\Http\Requests\UpdateAdminRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    private object $model;
+    private string $table;
+
+    public function __construct()
     {
-        //
+        $this->model = (new Admin())->query();
+        $this->table = (new Admin())->getTable();
+
+        $routeName = Route::currentRouteName();
+        $arr = explode('.', $routeName); //cắt chuỗi
+        $arr = array_map('ucfirst', $arr); // viết hoa chữ cái đầu
+        $title = implode(' - ', $arr); // nối nhau bằng dấu '-'
+
+        View::share('title', $title);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function index(Request $request)
+    {
+        $selectedPhone = $request->get('phone');
+
+        $query = $this->model->clone()
+            ->where('role', '=', 1)
+            ->latest();
+
+        if ( ! empty($selectedPhone) && $selectedPhone !== 'All') {
+            $query->where('phone', $selectedPhone);
+        }//kiểm tra có phone trên thanh địa chỉ hay không nếu có thì lấy phone rồi trả về dữ liệu
+
+        $data = $query->paginate(10);
+
+        $phones = $this->model->clone()
+            ->where('role', '=', 1)
+            ->pluck('phone');
+
+        return view('admin.index', [
+            'data'          => $data,
+            'phones'        => $phones,
+            'selectedPhone' => $selectedPhone,
+        ]);
+    }
+
     public function create()
     {
-        //
+        return view('admin.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreAdminRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreAdminRequest $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $this->model->create($request->validated());
+
+        return redirect()->route('admins.index')
+            ->with('success', 'Thêm admin thành công');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
     public function show(Admin $admin)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Admin $admin)
     {
-        //
+
+        return view('admin.edit', [
+            'each' => $admin
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateAdminRequest  $request
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateAdminRequest $request, Admin $admin)
+    public function update(UpdateRequest $request, $adminId)
     {
-        //
+        $this->model->where('id', $adminId)->update(
+            $request->validated()
+        );
+
+        return redirect()->route('admins.index')
+            ->with('success', 'Cập nhật thông tin admin thành công!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Admin $admin)
     {
-        //
+        if (checkSuperAdmin()) {
+            return redirect()->back()
+                ->with('error', 'Không được làm thế, dừng lại đi');
+        } else {
+            $admin->delete();
+
+            return redirect()->back()->with('success', 'Đã xoá thành công admin');
+        }
     }
 }

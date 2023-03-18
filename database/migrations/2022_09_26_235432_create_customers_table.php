@@ -20,11 +20,10 @@ class CreateCustomersTable extends Migration
             $table->string('avatar')->nullable();
             $table->boolean('gender')->nullable();
             $table->date('birth_date')->nullable();
-            $table->string('phone')->nullable();
+            $table->string('phone')->unique();
             $table->string('address')->nullable();
-            $table->string('email')->nullable();
+            $table->string('email')->unique();
             $table->string('password')->nullable();
-            $table->string('token')->nullable();
             $table->timestamps();
         });
     }

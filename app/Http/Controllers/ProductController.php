@@ -2,27 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Product\CheckSlugRequest;
+use App\Http\Requests\Product\DestroyRequest;
+use App\Http\Requests\Product\GenerateSlugRequest;
+use App\Http\Requests\Product\StoreRequest;
+use App\Http\Requests\Product\UpdateRequest;
+use App\Models\Category;
 use App\Models\Product;
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
-use Illuminate\Database\Eloquent\Builder;
+use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
-    private Builder $model;
+    use ResponseTrait;
+    private object $model;
+
     public function __construct()
     {
         $this->model = (new Product())->query();
 
         $routeName = Route::currentRouteName();
-        $arr    = explode('.', $routeName); //cắt chuỗi
-        $arr    = array_map('ucfirst', $arr); // viết hoa chữ cái đầu
-        $title  = implode(' - ', $arr); // nối nhau bằng dấu '-'
+        $arr = explode('.', $routeName); //cắt chuỗi
+        $arr = array_map('ucfirst', $arr); // viết hoa chữ cái đầu
+        $title = implode(' - ', $arr); // nối nhau bằng dấu '-'
 
-        View::share('title', $title); //chia sẻ title đến mọi nơi trong controller
+        View::share('title',
+            $title); //chia sẻ title đến mọi nơi trong controller
     }
 
     public function index()
@@ -32,62 +42,101 @@ class ProductController extends Controller
 
     public function api()
     {
-        return DataTables::of($this->model->with('category')->with('producer'))
+        return DataTables::of($this->model->with('category:id,name')) //láy kèm theo
             ->editColumn('created_at', function ($object) {
                 return $object->created_at->format('d/m/Y');
             })
-            ->addColumn('edit', function($object) {
-                return route('products.edit', $object); //server side rendering
-//                $link = route('products.edit', $object);
-//                return "<a class='btn btn-primary' href='$link'>Edit</a>"; //server side rendering
+            ->addColumn('edit', function ($object) {
+                return route('products.edit', $object);
             })
-            ->addColumn('destroy', function($object) {
-                return route('products.destroy', $object); //client side rendering
+            ->addColumn('destroy', function ($object) {
+                return route('products.destroy',
+                    $object);
             })
-            ->addColumn('category', function($object) {
+            ->addColumn('category', function ($object) {
                 return $object->category->name;
             })
-            ->addColumn('producer', function($object) {
-                return $object->producer->name;
-            })
-//            ->rawColumns(['edit']) //server side rendering
-
-
             ->make(true);
     }
 
     public function create()
     {
-        return view('product.create');
+        $categories = Category::query()->get();
+
+        return view('product.create', [
+                'categories' => $categories,
+            ],
+        );
     }
 
-    public function store(StoreProductRequest $request)
+    public function generateSlug(GenerateSlugRequest $request) : JsonResponse
     {
-        //
+        try {
+            $name = $request->get('name');
+            $slug = SlugService::createSlug(Product::class, 'slug', $name);
+
+            return $this->successResponse($slug);
+        } catch (\Throwable $e){
+            return $this->errorResponse();
+        }
+
+    }
+    public function checkSlug(CheckSlugRequest $request) : JsonResponse
+    {
+        return $this->successResponse();
+    }
+
+    public function store(StoreRequest $request)
+    {
+        $path = Storage::disk('public')->putFile('products', $request->file('image'));
+        $arr = $request->validated();
+        $arr['image'] = $path;
+        $this->model->create($arr);
+
+        return redirect()->back()->with('success', 'Đã thêm sản phẩm thành công');
     }
 
 
     public function edit(Product $product)
     {
+        $categories = Category::query()->get();
+
         return view('product.edit', [
-            'product' => $product,
+            'each'     => $product,
+            'categories' => $categories,
         ]);
     }
 
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(UpdateRequest $request, $categoryId)
     {
-        //
+        $arr = $request->validated();
+        $object = $this->model->find($categoryId);
+
+        if($request->hasFile('image')){
+            $path = Storage::disk('public')->putFile('products', $request->file('image'));
+
+            $arr['image'] = $path;
+
+            if (File::exists(public_path('storage/' . $object->image))) {
+                File::delete(public_path('storage/' . $object->image));
+            }
+        }
+
+        $object->update($arr);
+
+        return view('product.index')->with('success', 'Đã cập nhật sản phẩm thành công');
     }
 
-    public function destroy(Product $product)
+    public function destroy(DestroyRequest $product, $productId)
     {
-//        Product::destroy($product);
-        $product->delete();
-//        return redirect()->route('products.index');
-        $arr = [];
-        $arr['status'] = true;
-        $arr['message'] = '';
+        $object = $this->model->find($productId); //tìm product để lấy link ảnh
+        //kiểm tra nếu tốn tài thì xoá
+        if (File::exists(public_path('storage/' . $object->image))) {
+            File::delete(public_path('storage/' . $object->image));
+        }
 
-        return response( $arr, 200);
+        $object->delete();
+
+        return redirect()->back()->with('success', 'Đã xoá sản phẩm thành công');
     }
 }

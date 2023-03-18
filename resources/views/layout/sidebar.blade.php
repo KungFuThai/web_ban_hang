@@ -19,7 +19,7 @@
                         <img src="assets/images/logo_sm_dark.png" alt="" height="16">
                     </span>
                 </a>
-    
+
                 <div class="h-100 mm-active" id="left-side-menu-container" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden;"><div class="simplebar-content" style="padding: 0px;">
 
                     <!--- Sidemenu -->
@@ -51,7 +51,7 @@
                     </ul>
 
                     <!-- Help Box -->
-                    
+
                     <!-- end Help Box -->
                     <!-- End Sidebar -->
 
@@ -61,3 +61,4 @@
                 <!-- Sidebar -left -->
 
             </div>
+

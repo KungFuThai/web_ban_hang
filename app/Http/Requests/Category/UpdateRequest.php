@@ -34,20 +34,20 @@ class UpdateRequest extends FormRequest
             ],
         ];
     }
-    public function messages(): array
-    {
-        return [
-            'required'   => ':attribute bắt buộc phải điền!',
-            'unique'     => ':attribute trùng với loại nào khác rồi',
-            'producer_id.exists' => ':attribute không tồn tại',
-        ];
-    }
+//    public function messages(): array
+//    {
+//        return [
+//            'required'   => ':attribute bắt buộc phải điền!',
+//            'unique'     => ':attribute trùng với loại nào khác rồi',
+//            'producer_id.exists' => ':attribute không tồn tại',
+//        ];
+//    }
 
     public function attributes(): array
     {
         return [
-            'name'        => 'Tên loại',
-            'producer_id' => 'Mã nhà cung cấp',
+            'name'        => '"tên loại"',
+            'producer_id' => '"mã nhà cung cấp"',
         ];
     }
 }

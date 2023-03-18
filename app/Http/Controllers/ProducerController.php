@@ -84,10 +84,6 @@ class ProducerController extends Controller
     {
         $this->model->where('id', $producerId)->delete();
 
-        $arr = [];
-        $arr['status'] = true;
-        $arr['message'] = '';
-
-        return response( $arr, 200);
+        return redirect()->back()->with('success', 'Xoá nhà sản xuất thành công');
     }
 }

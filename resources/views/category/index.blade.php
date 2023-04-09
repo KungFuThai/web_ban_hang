@@ -5,43 +5,39 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 @endpush
 @section('content')
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row mb-2">
-                            <div class="col-sm-4">
-                                <a href="{{ route('categories.create') }}" class="btn btn-danger mb-2">
-                                    <i class="mdi mdi-plus-circle mr-2"></i>
-                                    Add Category
-                                </a>
-                            </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row mb-2">
+                        <div class="col-sm-4">
+                            <a href="{{ route('categories.create') }}" class="btn btn-success mb-2">
+                                <i class="mdi mdi-plus-circle mr-2"></i>
+                                Thêm loại sản phẩm
+                            </a>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="category_table" class="table table-striped table-centered mb-0">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Producer</th>
-                                    <th>Created At</th>
-                                    <th>Edit</th>
-                                    @if(checkSuperAdmin())
-                                        <th>Delete</th>
-                                    @endif
-                                </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div> <!-- end card-body-->
-                </div> <!-- end card-->
-            </div> <!-- end col -->
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="category_table" class="table table-striped table-centered mb-0">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Tên</th>
+                                <th>Nhà cung cấp</th>
+                                <th>Được tạo lúc</th>
+                                <th>Chỉnh sửa</th>
+                                @if(checkSuperAdmin())
+                                    <th>Xoá</th>
+                                @endif
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- end row -->
-
     </div>
 @endsection
 @push('js')
@@ -51,7 +47,7 @@
             src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/date-1.1.2/fc-4.1.0/fh-3.2.4/r-2.3.0/rg-1.2.0/sc-2.0.7/sb-1.3.4/sl-1.4.0/datatables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-        $(function() {
+        $(function () {
 
             let table = $('#category_table').DataTable({
                 language: {
@@ -62,18 +58,19 @@
                 lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "Tất cả"]],
                 ajax: '{!! route('categories.api') !!}',
                 columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'name', name: 'name' },
-                    { data: 'producer', name: 'producer' },
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'edit', name: 'edit',
+                    {data: 'id', name: 'id'},
+                    {data: 'name', name: 'name'},
+                    {data: 'producer', name: 'producer'},
+                    {data: 'created_at', name: 'created_at'},
+                    {
+                        data: 'edit', name: 'edit',
                         orderable: false,
                         searchable: false,
                         render: function (data) {
                             return `<a class="btn btn-primary" href="${data}"><i class="mdi mdi-file-edit-outline"></i></a>`
                         }
                     },
-                    @if(checkSuperAdmin())
+                        @if(checkSuperAdmin())
                     {
                         data: 'destroy', name: 'delete',
                         orderable: false,

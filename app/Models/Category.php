@@ -12,10 +12,26 @@ class Category extends Model
     use HasFactory;
     use Sluggable;
 
-    protected $fillable = [
-        'name',
-        'producer_id',
-    ];
+    protected $fillable
+        = [
+            'name',
+            'producer_id',
+        ];
+
+    protected static function booted(): void //thêm vào khi làm gì đó
+    {
+        static::saved(static function ($object) {
+            $categories = Category::query()
+                ->select([
+                    'id',
+                    'name',
+                    'slug',
+                ])
+                ->get();
+
+            cache()->put('categories', $categories, 86400 * 30);
+        });
+    }
 
     public function producer(): BelongsTo
     {
@@ -26,7 +42,7 @@ class Category extends Model
     {
         return [
             'slug' => [
-                'source' => 'name',
+                'source'   => 'name',
                 'onUpdate' => true,
             ]
         ];

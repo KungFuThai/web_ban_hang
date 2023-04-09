@@ -19,7 +19,7 @@ class CreateOrdersTable extends Migration
             $table->string('phone_receiver')->nullable();
             $table->string('address_receiver')->nullable();
             $table->integer('status');
-            $table->float('total_price')->nullable();
+            $table->double('total_price')->nullable();
             $table->foreignId('customer_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

@@ -7,29 +7,27 @@
     <link href="{{ asset('css/vendor/responsive.bootstrap4.css') }}" rel="stylesheet" type="text/css">
 @endpush
 @section('content')
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="customer_table" class="table table-striped table-centered mb-0">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Avatar</th>
-                                    <th>Name</th>
-                                    <th>Gender</th>
-                                    <th>Info</th>
-                                    <th>Age</th>
-                                    <th>Created At</th>
-                                    @if(checkSuperAdmin())
-                                        <th>Delete</th>
-                                    @endif
-                                </tr>
-                                </thead>
-                            </table>
-                        </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="customer_table" class="table table-striped table-centered mb-0">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Ảnh đại diện</th>
+                                <th>Họ và tên</th>
+                                <th>Giói tính</th>
+                                <th>Thông tin</th>
+                                <th>Tuổi</th>
+                                <th>Được tạo lúc</th>
+                                @if(checkSuperAdmin())
+                                    <th>Xoá</th>
+                                @endif
+                            </tr>
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -74,7 +72,7 @@
                     {data: 'info', name: 'info'},
                     {data: 'age', name: 'age'},
                     {data: 'created_at', name: 'created_at'},
-                    @if(checkSuperAdmin())
+                        @if(checkSuperAdmin())
                     {
                         data: 'destroy', name: 'delete',
                         orderable: false,

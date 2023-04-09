@@ -5,44 +5,40 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 @endpush
 @section('content')
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row mb-2">
-                            <div class="col-sm-4">
-                                <a href="{{ route('producers.create') }}" class="btn btn-danger mb-2">
-                                    <i class="mdi mdi-plus-circle mr-2"></i>
-                                    Add Producer
-                                </a>
-                            </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row mb-2">
+                        <div class="col-sm-4">
+                            <a href="{{ route('producers.create') }}" class="btn btn-success mb-2">
+                                <i class="mdi mdi-plus-circle mr-2"></i>
+                                Thêm nhà cung cấp
+                            </a>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="producer_table" class="table table-striped table-centered mb-0">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Phone</th>
-                                    <th>Address</th>
-                                    <th>Created At</th>
-                                    <th>Edit</th>
-                                    @if(checkSuperAdmin())
-                                        <th>Delete</th>
-                                    @endif
-                                </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div> <!-- end card-body-->
-                </div> <!-- end card-->
-            </div> <!-- end col -->
-        </div>
-        <!-- end row -->
-
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="producer_table" class="table table-striped table-centered mb-0">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Tên</th>
+                                <th>Số điện thoại</th>
+                                <th>Địa chỉ</th>
+                                <th>Được tạo lúc</th>
+                                <th>Chỉnh sửa</th>
+                                @if(checkSuperAdmin())
+                                    <th>Xoá</th>
+                                @endif
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
     </div>
 @endsection
 @push('js')
@@ -76,7 +72,7 @@
                             return `<a class="btn btn-primary" href="${data}"><i class="mdi mdi-file-edit-outline"></i></i></a>`
                         }
                     },
-                    @if(checkSuperAdmin())
+                        @if(checkSuperAdmin())
                     {
                         data: 'destroy', name: 'delete',
                         orderable: false,

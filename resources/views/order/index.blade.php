@@ -7,7 +7,7 @@
                     <div class="card-header">
                         <form class="form-inline" id="form-filter">
                             <div class="form-group">
-                                <label for="status" class="col-sm-2 control-label">Status</label>
+                                <label for="status" class="col-sm-2 control-label">Trạng thái</label>
                                 <div class="col-3">
                                     <select class="form-control" id="select-filter" name="status">
                                         <option selected>All</option>
@@ -29,12 +29,12 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Order By</th>
-                                    <th>Info Receiver</th>
-                                    <th>Total Price</th>
-                                    <th>Time Order</th>
-                                    <th>Status</th>
-                                    <th class="text-center">Activities</th>
+                                    <th>Đặt bởi</th>
+                                    <th>Thông tin người nhận</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Thời gian đặt</th>
+                                    <th>Trạng thái</th>
+                                    <th class="text-center">Hành động</th>
                                 </tr>
                                 </thead>
                                 @foreach ($data as $each)
@@ -57,9 +57,33 @@
                                             <br>
                                             {{ $each->address_receiver }}
                                         </td>
-                                        <td>{{ $each->total_price }}</td>
+                                        <td>
+                                            <small>₫</small>
+                                            {{ $each->total_price }}
+                                        </td>
                                         <td>{{ $each->time_created_at }}</td>
-                                        <td>{{ $each->status_name }}</td>
+                                        <td>
+                                            {{--                                            @if ($each->status === 1)--}}
+                                            {{--                                                Chờ duyệt--}}
+                                            {{--                                            @elseif($each->status === 2)--}}
+                                            {{--                                                Đã duyệt--}}
+                                            {{--                                            @else--}}
+                                            {{--                                                Đã huỷ--}}
+                                            {{--                                            @endif--}}
+                                            @switch($each->status)
+                                                @case(1)
+                                                Chờ duyệt
+                                                @break
+
+                                                @case(2)
+                                                Đã duyệt
+                                                @break
+
+                                                @case(3)
+                                                Đã huỷ
+                                                @break
+                                            @endswitch
+                                        </td>
                                         <td>
                                             <div class="form-inline justify-content-center">
                                                 <a href="{{ route('orders.show', $each) }}" class="btn btn-info">
@@ -67,20 +91,24 @@
                                                 </a>
                                                 &nbsp;
                                                 @if($each->status === 1 || $each->status === 3)
-                                                    <form method="post" action="{{ route("orders.update", $each) }}" class="mb-0">
+                                                    <form method="post" action="{{ route("orders.update", $each) }}"
+                                                          class="mb-0">
                                                         @csrf
                                                         @method('PUT')
                                                         <input type="hidden" name="status" value="2">
-                                                        <button class="btn-delete btn btn-success"><i class="mdi mdi-truck-check-outline"></i></button>
+                                                        <button class="btn-delete btn btn-success"><i
+                                                                    class="mdi mdi-truck-check-outline"></i></button>
                                                     </form>
                                                 @endif
                                                 &nbsp;
                                                 @if($each->status === 1 || $each->status === 2)
-                                                    <form method="post" action="{{ route("orders.update", $each) }}" class="mb-0">
+                                                    <form method="post" action="{{ route("orders.update", $each) }}"
+                                                          class="mb-0">
                                                         @csrf
                                                         @method('PUT')
                                                         <input type="hidden" name="status" value="3">
-                                                        <button class="btn-delete btn btn-danger"><i class="mdi mdi-cancel"></i></button>
+                                                        <button class="btn-delete btn btn-danger"><i
+                                                                    class="mdi mdi-cancel"></i></button>
                                                     </form>
                                                 @endif
                                             </div>
@@ -103,7 +131,7 @@
 @endsection
 @push('js')
     <script>
-        jQuery(document).ready(function ($) {
+        $(document).ready(function ($) {
             $("#select-filter").change(function ($event) {
                 $("#form-filter").submit();
             })

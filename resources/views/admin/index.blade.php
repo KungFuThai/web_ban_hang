@@ -7,9 +7,9 @@
                     <div class="card-header">
                         <div class="row mb-2">
                             <div class="col-sm-4">
-                                <a href="{{ route('admins.create') }}" class="btn btn-danger mb-2">
+                                <a href="{{ route('admins.create') }}" class="btn btn-success mb-2">
                                     <i class="mdi mdi-plus-circle mr-2"></i>
-                                    Add Admin
+                                    Thêm nhân viên
                                 </a>
                             </div>
                         </div>
@@ -37,9 +37,9 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Info</th>
-                                    <th>Role</th>
-                                    <th class="text-center">Activities</th>
+                                    <th>Thông tin</th>
+                                    <th>Vai trò</th>
+                                    <th class="text-center">Hành động</th>
                                 </tr>
                                 </thead>
                                 @foreach ($data as $each)
@@ -64,9 +64,9 @@
                                         </td>
                                         <td>
                                             <div class="form-inline justify-content-center">
-                                                <a href="{{ route('admins.show', $each) }}" class="btn btn-info">
-                                                    <i class="mdi mdi-account-card-details"></i>
-                                                </a>
+{{--                                                <a href="{{ route('admins.show', $each) }}" class="btn btn-info">--}}
+{{--                                                    <i class="mdi mdi-account-card-details"></i>--}}
+{{--                                                </a>--}}
                                                 &nbsp;
                                                 <a class="btn btn-primary" href="{{ route('admins.edit', $each) }}">
                                                     <i class="mdi mdi-file-edit-outline"></i>

@@ -15,7 +15,6 @@
 </head>
 
 <body class="authentication-bg pb-0" data-layout-config="{&quot;darkMode&quot;:false}">
-
     <div class="auth-fluid">
         <!--Auth fluid left content -->
         <div class="auth-fluid-form-box">
@@ -51,12 +50,6 @@
                                 <span class="text-danger text-left">{{ $errors->first('password') }}</span>
                             @endif
                         </div>
-{{--                        <div class="form-group mb-3">--}}
-{{--                            <div class="custom-control custom-checkbox">--}}
-{{--                                <input type="checkbox" class="custom-control-input" id="checkbox-signin">--}}
-{{--                                <label class="custom-control-label" for="checkbox-signin">Nhớ mật khẩu</label>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
                         <div class="form-group mb-0 text-center">
                             <button class="btn btn-primary btn-block" type="submit"><i class="mdi mdi-login"></i> Dăng Nhập</button>
                         </div>
@@ -90,9 +83,24 @@
     <!-- bundle -->
     <script src="{{ asset('js/vendor.min.js') }}"></script>
     <script src="{{ asset('js/app.min.js') }}"></script>
-
-
-
+    <script>
+        @if (session()->has('error'))
+        $.toast({
+            heading: 'Error',
+            text: '{{ session()->get('error') }}',
+            position: 'bottom-right',
+            icon: 'error',
+            stack: false
+        })
+        @elseif(session()->has('success'))
+        $.toast({
+            heading: 'Success',
+            text: '{{ session()->get('success') }}',
+            position: 'bottom-right',
+            icon: 'success',
+            stack: false
+        })
+        @endif
+    </script>
 </body>
-
 </html>

@@ -5,16 +5,15 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 @endpush
 @section('content')
-    <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <diov class="card-header">
                         <div class="row mb-2">
                             <div class="col-sm-4">
-                                <a href="{{ route('products.create') }}" class="btn btn-danger mb-2">
+                                <a href="{{ route('products.create') }}" class="btn btn-success mb-2">
                                     <i class="mdi mdi-plus-circle mr-2"></i>
-                                    Add Product
+                                    Thêm sản phẩm
                                 </a>
                             </div>
                         </div>
@@ -25,15 +24,15 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
-                                    <th>Image</th>
-                                    <th>Description</th>
-                                    <th>Price</th>
-                                    <th>Category</th>
-                                    <th>Created At</th>
-                                    <th>Edit</th>
+                                    <th>Tên</th>
+                                    <th>Ảnh</th>
+                                    <th>Mô tả</th>
+                                    <th>Giá</th>
+                                    <th>Loại sản phẩm</th>
+                                    <th>Được tạo lúc</th>
+                                    <th>Chỉnh sửa</th>
                                     @if(checkSuperAdmin())
-                                        <th>Delete</th>
+                                        <th>Xoá</th>
                                     @endif
                                 </tr>
                                 </thead>
@@ -43,9 +42,6 @@
                 </div> <!-- end card-->
             </div> <!-- end col -->
         </div>
-        <!-- end row -->
-
-    </div>
 @endsection
 @push('js')
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
@@ -62,12 +58,11 @@
                 },
                 processing: true,
                 scrollY: '50vh',
-                lengthMenu: [[10, 20, 30, -1], [5, 10, 20, "Tất cả"]],
+                lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "Tất cả"]],
                 ajax: '{!! route('products.api') !!}',
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
-                    // { data: 'image', name: 'image' },
                     {
                         data: 'image',
                         target: 2,
@@ -88,7 +83,7 @@
                             if (!data) {
                                 return '';
                             }
-                            return `${data}k VND`
+                            return `đ${data}`
                         }
                     },
                     {data: 'category', name: 'category'},

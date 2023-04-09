@@ -1,9 +1,14 @@
 @extends('layout.master');
 @section('content')
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
+    <a href="{{ route('producers.index') }}"
+       class="btn text-muted d-none d-sm-inline-block btn-link font-weight-semibold">
+        <i class="mdi mdi-arrow-left"></i>
+        Quay lại
+    </a>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
                     <form class="form-horizontal text-sm-center" action="{{ route('producers.store') }}" method="post">
                         @csrf
                         <div class="form-group row mb-3 justify-content-center">

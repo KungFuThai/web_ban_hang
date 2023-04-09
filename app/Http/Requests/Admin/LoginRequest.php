@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Models\Admin;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class LoginRequest extends FormRequest
 {
@@ -28,6 +30,7 @@ class LoginRequest extends FormRequest
                 'bail',
                 'required',
                 'string',
+                Rule::exists(Admin::class, 'email'),
             ],
             'password' => [
                 'bail',

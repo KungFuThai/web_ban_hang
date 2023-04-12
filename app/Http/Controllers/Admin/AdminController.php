@@ -90,7 +90,7 @@ class AdminController extends Controller
 
     public function destroy(Admin $admin)
     {
-        if (checkSuperAdmin()) {
+        if (isSuperAdmin()) {
             return redirect()->back()
                 ->with('error', 'Không được làm thế, dừng lại đi');
         } else {

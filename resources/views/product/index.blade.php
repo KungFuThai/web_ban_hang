@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <diov class="card-header">
+                    <div class="card-header">
                         <div class="row mb-2">
                             <div class="col-sm-4">
                                 <a href="{{ route('products.create') }}" class="btn btn-success mb-2">
@@ -17,7 +17,7 @@
                                 </a>
                             </div>
                         </div>
-                    </diov>
+                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="product_table" class="table table-striped table-centered mb-0">
@@ -31,7 +31,7 @@
                                     <th>Loại sản phẩm</th>
                                     <th>Được tạo lúc</th>
                                     <th>Chỉnh sửa</th>
-                                    @if(checkSuperAdmin())
+                                    @if(isSuperAdmin())
                                         <th>Xoá</th>
                                     @endif
                                 </tr>
@@ -96,7 +96,7 @@
                             return `<a class="btn btn-primary" href="${data}"><i class="mdi mdi-file-edit-outline"></i></a>`
                         }
                     },
-                    @if(checkSuperAdmin())
+                    @if(isSuperAdmin())
                     {
                         data: 'destroy', name: 'delete',
                         orderable: false,

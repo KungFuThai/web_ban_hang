@@ -22,7 +22,7 @@
                                 <th>Thông tin</th>
                                 <th>Tuổi</th>
                                 <th>Được tạo lúc</th>
-                                @if(checkSuperAdmin())
+                                @if(isSuperAdmin())
                                     <th>Xoá</th>
                                 @endif
                             </tr>
@@ -72,7 +72,7 @@
                     {data: 'info', name: 'info'},
                     {data: 'age', name: 'age'},
                     {data: 'created_at', name: 'created_at'},
-                        @if(checkSuperAdmin())
+                        @if(isSuperAdmin())
                     {
                         data: 'destroy', name: 'delete',
                         orderable: false,

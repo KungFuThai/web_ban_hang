@@ -31,7 +31,7 @@
                                         <span> Đơn hàng </span>
                                     </a>
                                 </li>
-                                @if(checkSuperAdmin())
+                                @if(isSuperAdmin())
                                 <li class="side-nav-item">
                                     <a href="{{ route('customers.index') }}" class="side-nav-link">
                                         <i class="dripicons-user"></i>
@@ -57,11 +57,17 @@
                                         <span>Nhà cung cấp</span>
                                     </a>
                                 </li>
-                                @if(checkSuperAdmin())
+                                @if(isSuperAdmin())
                                     <li class="side-nav-item">
                                         <a href="{{ route('admins.index') }}" class="side-nav-link">
-                                            <i class="dripicons-user"></i>
+                                            <i class="mdi mdi-account-supervisor"></i>
                                             <span>Admin</span>
+                                        </a>
+                                    </li>
+                                    <li class="side-nav-item">
+                                        <a href="{{ route('activities.index') }}" class="side-nav-link">
+                                            <i class="mdi mdi-history"></i>
+                                            <span>Hoạt động</span>
                                         </a>
                                     </li>
                                 @endif

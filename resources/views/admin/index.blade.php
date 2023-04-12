@@ -71,7 +71,7 @@
                                                 <a class="btn btn-primary" href="{{ route('admins.edit', $each) }}">
                                                     <i class="mdi mdi-file-edit-outline"></i>
                                                 </a>
-                                                &nbsp;@if(checkSuperAdmin())
+                                                &nbsp;@if(isSuperAdmin())
                                                     <form method="post" action="{{ route("admins.destroy", $each) }}"
                                                           class="mb-0">
                                                         @csrf

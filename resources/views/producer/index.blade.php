@@ -29,7 +29,7 @@
                                 <th>Địa chỉ</th>
                                 <th>Được tạo lúc</th>
                                 <th>Chỉnh sửa</th>
-                                @if(checkSuperAdmin())
+                                @if(isSuperAdmin())
                                     <th>Xoá</th>
                                 @endif
                             </tr>
@@ -72,7 +72,7 @@
                             return `<a class="btn btn-primary" href="${data}"><i class="mdi mdi-file-edit-outline"></i></i></a>`
                         }
                     },
-                        @if(checkSuperAdmin())
+                        @if(isSuperAdmin())
                     {
                         data: 'destroy', name: 'delete',
                         orderable: false,

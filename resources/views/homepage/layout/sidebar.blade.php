@@ -4,7 +4,7 @@
         <div class="card-content">
             <form>
                 <h4 class="card-title">
-                    Refine
+                    Bộ lọc
                     <a href="{{ route('customer.index') }}" class="btn btn-info btn-fab btn-fab-mini btn-simple pull-right" rel="tooltip"
                             title="" data-original-title="Reset Filter">
                         <i class="material-icons">cached</i>
@@ -14,7 +14,7 @@
                     <div class="panel-heading" role="tab" id="headingOne">
                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
                            href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                            <h4 class="panel-title">Price Range</h4>
+                            <h4 class="panel-title">Khoảng giá</h4>
                             <i class="material-icons">keyboard_arrow_down</i>
                         </a>
                     </div>
@@ -76,3 +76,35 @@
         </div>
     </div><!-- end card -->
 </div>
+@push('js')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            const slider2 = document.getElementById('sliderRefine');
+
+            const minPrice = parseInt($('#input-min-price').val())
+            const maxPrice = parseInt($('#input-max-price').val())
+
+            noUiSlider.create(slider2, {
+                start: [minPrice, maxPrice],
+                connect: true,
+                range: {
+                    'min': [{{ $arrPrice['min_price'] }} - 50000],
+                    'max': [{{ $arrPrice['max_price'] }} + 50000]
+                },
+                step: 1000,
+            });
+
+            let val;
+            slider2.noUiSlider.on('update', function (values, handle) {
+                val = Math.round(values[handle]);
+                if (handle) {
+                    $('#span-max-price').text(val);
+                    $('#input-max-price').val(val);
+                } else {
+                    $('#span-min-price').text(val);
+                    $('#input-min-price').val(val);
+                }
+            });
+        });
+    </script>
+@endpush

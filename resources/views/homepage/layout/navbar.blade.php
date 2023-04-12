@@ -29,7 +29,7 @@
                 </li>
                 <li class="dropdown">
                     <a class="profile-photo dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        @if(session()->has('customer'))
+                        @if(isCustomer())
                             @if(session('customer.avatar') === null)
                                 <div class="profile-photo-small">
                                     <img src="{{ asset('images/default-avatar.png') }}"
@@ -55,7 +55,7 @@
                         <li class="dropdown-header">
                             Tài khoản
                         </li>
-                        @if(session()->has('customer'))
+                        @if(isCustomer())
                             <li>
                                 <a href="{{ route('customer.profile.edit') }}">
                                     {{ session('customer.full_name') }}
@@ -67,7 +67,7 @@
                                 </a>
                             </li>
                         @endif
-                        @if(empty(session('customer')))
+                        @if(!isCustomer())
                             <li>
                                 <a href="{{ route('customer.login') }}">Đăng nhập</a>
                             </li>
@@ -75,7 +75,7 @@
                                 <a href="{{ route('customer.register') }}">Đăng ký</a>
                             </li>
                         @endif
-                        @if(session()->has('customer'))
+                        @if(isCustomer())
                             <li class="divider"></li>
                             <li>
                                 <form method="post" action="{{ route('customer.logout')}}" style="text-align: center">

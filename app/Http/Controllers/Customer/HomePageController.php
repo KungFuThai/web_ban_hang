@@ -3,19 +3,20 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\HomePage\IndexRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomePageController extends Controller
 {
-    public function index(Request $request)
+    public function index(IndexRequest $request)
     {
         $q = $request->get('q');
         $filterCategories = $request->get('categories', []);
 
-        $arrPrice['min_price'] = Product::query()->min('price');
-        $arrPrice['max_price'] = Product::query()->max('price');
+        $arrPrice['min_price'] = ceil(Product::query()->min('price'));
+        $arrPrice['max_price'] = ceil(Product::query()->max('price'));
         $minPrice = $request->get('min_price', $arrPrice['min_price']);
         $maxPrice = $request->get('max_price', $arrPrice['max_price']);
 
@@ -32,7 +33,7 @@ class HomePageController extends Controller
                         ])
                         ->get();
                 }
-            );// loại ít thay đổi láy ra rồi cache lại cho nhẹ
+            );// 'loại' ít thay đổi lấy ra rồi cache lại cho nhẹ
 
         $query = Product::query()->latest();
 
@@ -74,13 +75,13 @@ class HomePageController extends Controller
                 ->where('name', 'like', '%'.$search.'%')
                 ->get();
 
-            $searchData = '';
+            $resultData = '';
             if (count($data) > 0) {
-                $searchData ='<ul style="list-style-type: none; margin-left: -40px; background-color: white; overflow: hidden">';
+                $resultData ='<ul style="list-style-type: none; margin-left: -40px; background-color: white; overflow: hidden">';
                 foreach ($data as $row) {
                     $link = route('customer.show',$row->slug);
                     $img = asset('storage') . '/' . $row->image;
-                    $searchData .= "
+                    $resultData .= "
                     <li style='clear:both; border-bottom: 1px solid gray;'>
                         <a href='$link' style='float: left'>
                             <img src='$img' width='50px' height='50px'>
@@ -89,12 +90,12 @@ class HomePageController extends Controller
                     </li>
                     ";
                 }
-                $searchData .= '</ul>';
+                $resultData .= '</ul>';
             }
             else {
-                $searchData .= 'Không tìm thấy kết quả!';
+                $resultData .= 'Không tìm thấy kết quả!';
             }
-            return $searchData;
+            return $resultData;
         }
     }
 

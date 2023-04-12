@@ -92,7 +92,7 @@
             </div>
         </div>
     </div>
-    @if(checkSuperAdmin())
+    @if(isSuperAdmin())
         <div class="row">
             <div class="col-lg-6">
                 <div class="card widget-flat">
@@ -117,21 +117,16 @@
                 </div>
             </div>
         </div>
-    @endif
-    <div class="col-lg-12">
-        <div class="card widget-flat">
-            <div class="card-body">
-                <figure class="highcharts-figure">
-                    <div id="container"></div>
-                    <p class="highcharts-description">
-                        Basic line chart showing trends in a dataset. This chart includes the
-                        <code>series-label</code> module, which adds a label to each line for
-                        enhanced readability.
-                    </p>
-                </figure>
+        <div class="col-lg-12">
+            <div class="card widget-flat">
+                <div class="card-body">
+                    <figure class="highcharts-figure">
+                        <div id="container"></div>
+                    </figure>
+                </div>
             </div>
         </div>
-    </div>
+    @endif
 @endsection
 @push('js')
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -140,71 +135,71 @@
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $.ajax({
                 url: '{{ route('get_revenue') }}',
                 type: 'GET',
                 dataType: 'json',
                 data: {days: 6},
             })
-            .done(function(response) {
-                const arrX = (Object.keys(response.data));
-                const arrY = (Object.values(response.data));
-                Highcharts.chart('container', {
+                .done(function (response) {
+                    const arrX = (Object.keys(response.data));
+                    const arrY = (Object.values(response.data));
+                    Highcharts.chart('container', {
 
-                    title: {
-                        text: 'Thống kê doanh thu 7 ngày gần nhất',
-                        align: 'left'
-                    },
-
-                    yAxis: {
                         title: {
-                            text: 'Doanh thu'
+                            text: 'Thống kê doanh thu 7 ngày gần nhất',
+                            align: 'left'
                         },
-                        max: null,
-                        min: null,
-                    },
 
-                    xAxis: {
-                        categories: arrX
-                    },
-
-                    legend: {
-                        layout: 'vertical',
-                        align: 'right',
-                        verticalAlign: 'middle'
-                    },
-
-                    plotOptions: {
-                        series: {
-                            label: {
-                                connectorAllowed: false
+                        yAxis: {
+                            title: {
+                                text: 'Doanh thu'
                             },
-                        }
-                    },
+                            max: null,
+                            min: null,
+                        },
 
-                    series: [{
-                        name: 'Số tiền',
-                        data: arrY
-                    }],
+                        xAxis: {
+                            categories: arrX
+                        },
 
-                    responsive: {
-                        rules: [{
-                            condition: {
-                                maxWidth: 500
-                            },
-                            chartOptions: {
-                                legend: {
-                                    layout: 'horizontal',
-                                    align: 'center',
-                                    verticalAlign: 'bottom'
-                                }
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'middle'
+                        },
+
+                        plotOptions: {
+                            series: {
+                                label: {
+                                    connectorAllowed: false
+                                },
                             }
-                        }]
-                    }
+                        },
 
+                        series: [{
+                            name: 'Số tiền',
+                            data: arrY
+                        }],
+
+                        responsive: {
+                            rules: [{
+                                condition: {
+                                    maxWidth: 500
+                                },
+                                chartOptions: {
+                                    legend: {
+                                        layout: 'horizontal',
+                                        align: 'center',
+                                        verticalAlign: 'bottom'
+                                    }
+                                }
+                            }]
+                        }
+
+                    });
                 });
-            });
         });
     </script>
 @endpush

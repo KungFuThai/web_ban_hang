@@ -3,7 +3,7 @@
         padding: 15px;
         text-align: center;">
     <span>Đây là tin nhắn xác nhận việc đổi mật khẩu của bạn đến từ {{ config('app.name') }}</span>
-    <span>Để xác nhận và bắt đầu việc đổi mật khẩu của bạn vui lòng ấn nút bên dưới</span>
+    <span>Để xác nhận và bắt đầu việc đổi mật khẩu của bạn vui lòng ấn nút bên dưới admin</span>
     <br>
     <a
         style="background-color: #00bcd4;

@@ -92,7 +92,7 @@ class AuthController extends Controller
                     'email' => $email,
                     'token' => Str::random(60),
                 ]);
-        Mail::send('auth.mail', compact('forgetPassword'), function ($email) use ($forgetPassword) {
+        Mail::send('homepage.auth.mail', compact('forgetPassword'), function ($email) use ($forgetPassword) {
             $title = config('app.name').' '.'đổi mật khẩu';
             $email->subject(config('app.name').' '.'đổi mật khẩu');
             $email->to($forgetPassword->email);

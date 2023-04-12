@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ActivityController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -87,6 +88,15 @@ Route::group([
         Route::group([
             'middleware' => CheckSuperAdminMiddleware::class,
         ], function () {
+            Route::group([
+                'as'     => 'activities.',
+                'prefix' => 'activities',
+            ], function () {
+                Route::get('/', [ActivityController::class, 'index'])
+                    ->name('index');
+                Route::get('/activities/api', [ActivityController::class, 'api'])
+                    ->name('api');
+            });
             Route::group([
                 'as'     => 'admins.',
                 'prefix' => 'admins',

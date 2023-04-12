@@ -26,18 +26,14 @@ class Order extends Model
     {
         return $this->BelongsTo(Customer::class);
     }
-    public function order_details()
-    {
-        return $this->hasMany(OrderDetail::class);
-    }
 
     public function getTimeCreatedAtAttribute() : string
     {
         return $this->created_at->diffForHumans();
     }
 
-    public function getStatusNameAttribute() : string
-    {
-        return OrderStatusEnum::getKeys($this->status)[0];
-    }
+//    public function getStatusNameAttribute() : string
+//    {
+//        return OrderStatusEnum::getKeys($this->status)[0];
+//    }
 }

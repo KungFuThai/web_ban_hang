@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\ActivityNameEnum;
 use App\Enums\OrderStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\UpdateStatusRequest;
@@ -55,16 +56,6 @@ class OrderController extends Controller
         );
     }
 
-    public function create()
-    {
-        //
-    }
-
-    public function store(StoreOrderRequest $request)
-    {
-        //
-    }
-
     public function show(Order $order)
     {
         $orderId = $order->id;
@@ -84,11 +75,6 @@ class OrderController extends Controller
         ]);
     }
 
-    public function edit(Order $order)
-    {
-        //
-    }
-
     public function update(UpdateStatusRequest $request, $orderId)
     {
         $adminId = session('admin.id');
@@ -98,7 +84,7 @@ class OrderController extends Controller
         );
         if ($request->get('status') === '2') {
             Activity::create([
-                'activity' => 1,
+                'activity' => ActivityNameEnum::ACCEPT,
                 'order_id' => $orderId,
                 'admin_id' => $adminId,
             ]);
@@ -107,7 +93,7 @@ class OrderController extends Controller
                 ->with('success', 'Duyệt đơn thành công');
         } else {
             Activity::create([
-                'activity' => 2,
+                'activity' => ActivityNameEnum::CANCEL,
                 'order_id' => $orderId,
                 'admin_id' => $adminId,
             ]);

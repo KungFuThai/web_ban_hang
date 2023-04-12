@@ -10,7 +10,7 @@ class DestroyRequest extends FormRequest
 {
     public function authorize() : bool
     {
-        return true;
+        return isSuperAdmin();
     }
 
     public function rules() : array

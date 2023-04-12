@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Product;
+namespace App\Http\Requests\HomePage;
 
-use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class DestroyRequest extends FormRequest
+class IndexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +13,7 @@ class DestroyRequest extends FormRequest
      */
     public function authorize()
     {
-        return isAdmin();
+        return true;
     }
 
     /**
@@ -26,15 +24,15 @@ class DestroyRequest extends FormRequest
     public function rules()
     {
         return [
-            'product' => [
-                'required',
-                Rule::exists(Product::class,'id'),
+            'categories' => [
+                'array',
+            ],
+            'min_price' => [
+                'integer',
+            ],
+            'max_price' => [
+                'integer',
             ],
         ];
-    }
-
-    protected function prepareForValidation(): void
-    {
-        $this->merge(['product' => $this->route('product')]);
     }
 }

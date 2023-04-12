@@ -10,7 +10,7 @@ class CheckSlugRequest extends FormRequest
 {
     public function authorize() : bool
     {
-        return true;
+        return isAdmin();
     }
 
     public function rules() : array

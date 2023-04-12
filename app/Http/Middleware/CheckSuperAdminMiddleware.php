@@ -16,7 +16,7 @@ class CheckSuperAdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(session('admin.role') === 1){
+        if(!isSuperAdmin()){
             return redirect()->back()->with('error', 'Không được làm thế, dừng lại đi!');
         }
         return $next($request);

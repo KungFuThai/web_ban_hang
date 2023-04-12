@@ -16,7 +16,7 @@ class CheckCustomerLoginMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!session()->has('customer.id')){
+        if(!isCustomer()){
             return redirect()->route('customer.login')->with('error', 'Bạn cần đăng nhập để thực hiện hành động này!');
         }
         return $next($request);

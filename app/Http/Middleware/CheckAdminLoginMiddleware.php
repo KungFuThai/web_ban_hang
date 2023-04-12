@@ -16,7 +16,7 @@ class CheckAdminLoginMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!session()->has('admin.role')){
+        if(!isAdmin()){
             return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để thực hiện hành động này!');
         }
         return $next($request);

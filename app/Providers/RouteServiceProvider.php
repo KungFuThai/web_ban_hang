@@ -37,8 +37,8 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware('api')
                 ->group(base_path('routes/api.php'));
             //route mới khai báo
-            Route::prefix('customer')
-                ->middleware('web')
+//            Route::prefix('customer')
+            Route::middleware('web')
                 ->name('customer.')
                 ->group(base_path('routes/customer.php'));
         });

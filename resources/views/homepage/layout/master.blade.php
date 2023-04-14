@@ -3,9 +3,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>
-        @if(!empty($q))
+        @isset($q)
             Tìm kiếm:
-        @endif
+        @endisset
         {{ $q ?? $title ?? config('app.name') }}
     </title>
 

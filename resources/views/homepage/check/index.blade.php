@@ -65,17 +65,6 @@
                     @endforeach
                 </table>
             </div>
-            {{--            <div id="acordeon">--}}
-            {{--                <div class="panel-group" id="accordion">--}}
-            {{--                    <div class="panel panel-border panel-default active">--}}
-            {{--                        <h4 class="panel-title">--}}
-            {{--                            Mô tả sản phẩm--}}
-            {{--                        </h4>--}}
-            {{--                        <hr>--}}
-            {{--                        <p>{{ $product->description }}</p>--}}
-            {{--                    </div>--}}
-            {{--                </div>--}}
-            {{--            </div>--}}
         </div>
     </div>
 @endsection

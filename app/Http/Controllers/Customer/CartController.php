@@ -65,18 +65,18 @@ class CartController extends Controller
 
     public function updateQuantity(Request $request)
     {
-        $id = $request->id;
+        $productId = $request->id;
         $type = $request->type;
         $cart = session()->get('cart');
 
         if($type === '0'){
-            if($cart[$id]['quantity'] > 1){
-                $cart[$id]['quantity']--;
+            if($cart[$productId]['quantity'] > 1){
+                $cart[$productId]['quantity']--;
             }else{
-                unset($cart[$id]);
+                unset($cart[$productId]);
             }
         }else{
-            $cart[$id]['quantity']++;
+            $cart[$productId]['quantity']++;
         }
         session()->put('cart', $cart);
     }

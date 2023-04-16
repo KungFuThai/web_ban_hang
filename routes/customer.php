@@ -37,4 +37,5 @@ Route::group([
 
     Route::get('/profile/check', [ProfileController::class, 'check'])->name('profile.check');
     Route::get('/profile/check/detail/{order_id}', [ProfileController::class, 'checkDetail'])->name('profile.check_detail');
+    Route::put('/profile/check/{order}/cancel', [ProfileController::class, 'cancelOrder'])->name('profile.cancel_order');
 });

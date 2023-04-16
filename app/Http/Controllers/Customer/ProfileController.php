@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\Enums\OrderStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\UpdateProfileRequest;
+use App\Http\Requests\HomePage\CancelOrderRequest;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderDetail;
@@ -81,7 +83,7 @@ class ProfileController extends Controller
         $orderIds = Order::query()
             ->where('customer_id', $customerId)->pluck('id')->toArray();
 
-        if(in_array($orderId,$orderIds)){
+        if (in_array($orderId, $orderIds)) {
             $order = Order::query()->find($orderId);
 
             $orderDetail = OrderDetail::query()
@@ -91,9 +93,35 @@ class ProfileController extends Controller
 
             return view('homepage.check.show', [
                 'orderDetail' => $orderDetail,
-                'order' => $order,
+                'order'       => $order,
             ]);
         }
-        return redirect()->route('customer.profile.check')->with('error', 'Bạn chỉ có thể xem dược hoá đơn của mình thôi!');
+
+        return redirect()->route('customer.profile.check');
+    }
+
+    public function cancelOrder(CancelOrderRequest $request, $orderId)
+    {
+        $customerId = session()->get('customer.id');
+        $orderIds = Order::query()
+            ->where('customer_id', $customerId)->pluck('id')->toArray();
+
+        if (in_array($orderId, $orderIds)) {
+            $order = Order::query()
+                ->find($orderId);
+            $orderStatus = $order->status;
+
+            if ($orderStatus === OrderStatusEnum::PENDING) {
+                $order->update([
+                    'status' => OrderStatusEnum::CANCEL,
+                ]);
+
+                return redirect()->back()->with('success', 'Huỷ đơn hàng thành công!');
+            }
+
+            return redirect()->back();
+        }
+
+        return redirect()->back();
     }
 }

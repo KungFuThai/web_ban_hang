@@ -59,6 +59,19 @@
                         </tr>
                     @endforeach
                     <tr>
+                        @if($order->status === 1)
+                            <td>
+                                <form method="post" action="{{ route("customer.profile.cancel_order", $order->id) }}"
+                                      class="mb-0">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="hidden" name="status" value="3">
+                                    <button class="btn btn-danger">
+                                        Huỷ
+                                    </button>
+                                </form>
+                            </td>
+                        @endif
                         <td class="td-total">
                             Tổng tiền hoá đơn:
                         </td>

@@ -16,6 +16,7 @@
                         <th>#</th>
                         <th>Thông tin người nhận</th>
                         <th>Trạng thái</th>
+                        <th>Thời gian đặt</th>
                         <th>Tổng Tiền</th>
                     </tr>
                     </thead>
@@ -53,6 +54,10 @@
                                 @endswitch
                             </td>
                             <td>
+                                {{ $order->time_created_at }}
+                            </td>
+                            <td>
+                                <small>₫</small>
                                 {{ $order->total_price }}
                             </td>
                             <td>

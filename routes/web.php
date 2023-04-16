@@ -74,12 +74,12 @@ Route::group([
             'prefix' => 'orders',
         ], function () {
             Route::get('/', [OrderController::class, 'index'])->name('index');
-            Route::get('/create', [OrderController::class, 'create'])
-                ->name('create');
-            Route::post('/create', [OrderController::class, 'store'])
-                ->name('store');
-            Route::get('/{order}/edit', [OrderController::class, 'edit'])
-                ->name('edit');
+//            Route::get('/create', [OrderController::class, 'create'])
+//                ->name('create');
+//            Route::post('/create', [OrderController::class, 'store'])
+//                ->name('store');
+//            Route::get('/{order}/edit', [OrderController::class, 'edit'])
+//                ->name('edit');
             Route::put('/{order}/edit', [OrderController::class, 'update'])
                 ->name('update');
             Route::get('/{order}', [OrderController::class, 'show'])

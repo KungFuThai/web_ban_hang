@@ -63,13 +63,6 @@
                                         </td>
                                         <td>{{ $each->time_created_at }}</td>
                                         <td>
-                                            {{--                                            @if ($each->status === 1)--}}
-                                            {{--                                                Chờ duyệt--}}
-                                            {{--                                            @elseif($each->status === 2)--}}
-                                            {{--                                                Đã duyệt--}}
-                                            {{--                                            @else--}}
-                                            {{--                                                Đã huỷ--}}
-                                            {{--                                            @endif--}}
                                             @switch($each->status)
                                                 @case(1)
                                                 Chờ duyệt
@@ -96,7 +89,7 @@
                                                         @csrf
                                                         @method('PUT')
                                                         <input type="hidden" name="status" value="2">
-                                                        <button class="btn-delete btn btn-success"><i
+                                                        <button class="btn btn-success"><i
                                                                     class="mdi mdi-truck-check-outline"></i></button>
                                                     </form>
                                                 @endif
@@ -107,7 +100,7 @@
                                                         @csrf
                                                         @method('PUT')
                                                         <input type="hidden" name="status" value="3">
-                                                        <button class="btn-delete btn btn-danger"><i
+                                                        <button class="btn btn-danger"><i
                                                                     class="mdi mdi-cancel"></i></button>
                                                     </form>
                                                 @endif

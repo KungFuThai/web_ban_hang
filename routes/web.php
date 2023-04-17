@@ -29,8 +29,8 @@ Route::group([
         'middleware' => CheckAdminLoginMiddleware::class,
     ], function () {
         //welcome
-        Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
-        Route::get('/revenue', [WelcomeController::class, 'getRevenue'])->name('get_revenue');
+        Route::get('/welcome', [WelcomeController::class, 'index'])->name('welcome');
+        Route::get('welcome/revenue', [WelcomeController::class, 'getRevenue'])->name('get_revenue');
         //end welcome
         //admin auth
         Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

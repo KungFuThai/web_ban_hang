@@ -36,6 +36,6 @@ Route::group([
     Route::put('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::get('/profile/check', [ProfileController::class, 'check'])->name('profile.check');
-    Route::get('/profile/check/detail/{order_id}', [ProfileController::class, 'checkDetail'])->name('profile.check_detail');
+    Route::get('/profile/check/{order_id}', [ProfileController::class, 'checkDetail'])->name('profile.check_detail');
     Route::put('/profile/check/{order}/cancel', [ProfileController::class, 'cancelOrder'])->name('profile.cancel_order');
 });

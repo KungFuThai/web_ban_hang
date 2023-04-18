@@ -1,7 +1,7 @@
 @extends('homepage.layout.master')
 @section('content')
     <div class="row">
-        <a class="navbar-brand" href="{{ route('customer.profile.check') }}">
+        <a class="navbar-brand" href="{{ url()->previous() }}">
             <i class="fa fa-long-arrow-left"></i>
             Quay lại
         </a>

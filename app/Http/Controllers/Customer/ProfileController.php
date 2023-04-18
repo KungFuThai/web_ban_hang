@@ -9,7 +9,6 @@ use App\Http\Requests\HomePage\CancelOrderRequest;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderDetail;
-use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -68,7 +67,9 @@ class ProfileController extends Controller
     {
         $customerId = session()->get('customer.id');
         $orders = Order::query()
-            ->where('customer_id', $customerId)->get();
+            ->where('customer_id', $customerId)
+            ->latest()
+            ->paginate(5);
 
         return view('homepage.check.index', [
             'orders' => $orders,

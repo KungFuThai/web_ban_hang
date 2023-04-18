@@ -1,4 +1,12 @@
 @extends('homepage.layout.master')
+@push('css')
+    <style>
+        .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+            background-color: #00bcd4 !important;
+            border-color: #00bcd4 !important;
+        }
+    </style>
+@endpush
 @section('content')
     <div class="row">
         <a class="navbar-brand" href="{{ route('customer.index') }}">
@@ -20,16 +28,11 @@
                         <th>Tổng Tiền</th>
                     </tr>
                     </thead>
-                    @php
-                        $id = 1;
-                    @endphp
                     @foreach($orders as $order)
                         <tbody>
                         <tr>
                             <td>
-                                @if($loop)
-                                    {{ $id++ }}
-                                @endif
+                                {{ $loop->index + 1 }}
                             </td>
                             <td>
                                 {{ $order->name_receiver }}
@@ -69,7 +72,69 @@
                         </tbody>
                     @endforeach
                 </table>
+                <div class="pagination" style="display: flex; align-items: center; justify-content: center;">
+                    {{ $orders->links() }}
+                </div>
             </div>
-        </div>
+{{--        <div class="col-xs-12">--}}
+{{--            <div class="invoice-wrapper">--}}
+{{--                <div class="invoice-top">--}}
+{{--                    <div class="row">--}}
+{{--                        <div class="col-sm-6">--}}
+{{--                            <div style="float: left">--}}
+{{--                                <h2>haha</h2>--}}
+{{--                                <h6>haha</h6>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-sm-6">--}}
+{{--                            <div style="float: right">--}}
+{{--                                <h2>{{ config('app.name') }}</h2>--}}
+{{--                                <h6>DNC</h6>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="invoice-bottom">--}}
+{{--                    <div class="row">--}}
+{{--                        <div class="clearfix"></div>--}}
+
+{{--                        <div class="col-md-offset-2 col-md-8 col-sm-9">--}}
+{{--                            <div class="invoice-bottom-right">--}}
+{{--                                <table class="table">--}}
+{{--                                    <thead>--}}
+{{--                                    <tr>--}}
+{{--                                        <th>Sản phẩm</th>--}}
+{{--                                        <th>Giá</th>--}}
+{{--                                        <th>Số lượng</th>--}}
+{{--                                        <th>Tổng sản phẩm</th>--}}
+{{--                                    </tr>--}}
+{{--                                    </thead>--}}
+{{--                                    <tbody>--}}
+{{--                                    <tr>--}}
+{{--                                        <td>1</td>--}}
+{{--                                        <td>Initial research</td>--}}
+{{--                                        <td>₹10,000</td>--}}
+{{--                                        <td>₹10,000</td>--}}
+{{--                                    </tr>--}}
+{{--                                    <tr style="height: 40px;"></tr>--}}
+{{--                                    </tbody>--}}
+{{--                                    <thead>--}}
+{{--                                    <tr>--}}
+{{--                                        <th></th>--}}
+{{--                                        <th></th>--}}
+{{--                                        <th>Total</th>--}}
+{{--                                        <th>₹95,000</th>--}}
+{{--                                    </tr>--}}
+{{--                                    </thead>--}}
+{{--                                </table>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="clearfix"></div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+
+    </div>
     </div>
 @endsection

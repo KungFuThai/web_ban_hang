@@ -15,7 +15,7 @@ use Yajra\DataTables\DataTables;
 
 class ProducerController extends Controller
 {
-    private Builder $model;
+    private object $model;
 
     public function __construct()
     {
@@ -92,8 +92,10 @@ class ProducerController extends Controller
 
             return redirect()->back()->with('success', 'Xoá nhà sản xuất thành công');
         } else {
-            return redirect()->back()->with('error',
-                'Bạn cần xoá toàn bộ loại sản phẩm từ nhà cung cấp này trước khi có thể xoá nhà cung cấp này!');
+            return redirect()->back()->with(
+                'error',
+                'Bạn cần xoá toàn bộ loại sản phẩm từ nhà cung cấp này trước khi có thể xoá nhà cung cấp này!'
+            );
         }
     }
 }

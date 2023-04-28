@@ -16,7 +16,7 @@ use Yajra\DataTables\DataTables;
 
 class CategoryController extends Controller
 {
-    private Builder $model;
+    private object $model;
 
     public function __construct()
     {
@@ -27,8 +27,10 @@ class CategoryController extends Controller
         $arr = array_map('ucfirst', $arr); // viết hoa chữ cái đầu
         $title = implode(' - ', $arr); // nối nhau bằng dấu '-'
 
-        View::share('title',
-            $title); //chia sẻ title đến mọi nơi trong controller
+        View::share(
+            'title',
+            $title
+        ); //chia sẻ title đến mọi nơi trong controller
     }
 
     public function index()
@@ -43,12 +45,16 @@ class CategoryController extends Controller
                 return $object->created_at->format('d/m/Y');
             })
             ->addColumn('edit', function ($object) {
-                return route('categories.edit',
-                    $object);
+                return route(
+                    'categories.edit',
+                    $object
+                );
             })
             ->addColumn('destroy', function ($object) {
-                return route('categories.destroy',
-                    $object); //client side rendering
+                return route(
+                    'categories.destroy',
+                    $object
+                ); //client side rendering
             })
             ->addColumn('producer', function ($object) {
                 return $object->producer->name;
@@ -60,9 +66,11 @@ class CategoryController extends Controller
     {
         $producers = Producer::query()->get();
 
-        return view('category.create', [
-            'producers' => $producers,
-        ],
+        return view(
+            'category.create',
+            [
+                'producers' => $producers,
+            ],
         );
     }
 
@@ -111,6 +119,5 @@ class CategoryController extends Controller
         } else {
             return redirect()->back()->with('error', 'Bạn cần xoá hết sản phẩm thuộc loại này trước khi xoá loại sản phẩm này!');
         }
-
     }
 }

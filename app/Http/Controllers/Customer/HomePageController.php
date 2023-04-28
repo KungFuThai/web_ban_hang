@@ -54,7 +54,7 @@ class HomePageController extends Controller
             $query->where('name', 'like', '%'.$q.'%');
         }
 
-        $products = $query->paginate(8)->withQueryString();
+        $products = $query->paginate(9)->withQueryString();
 
         return view('homepage.customer.index', [
             'products'         => $products,

@@ -36,18 +36,18 @@ class AdminController extends Controller
             ->where('role', '=', 1)
             ->latest();
 
-        if ( ! empty($selectedPhone) && $selectedPhone !== 'All') {
+        if (!empty($selectedPhone) && $selectedPhone !== 'All') {
             $query->where('phone', $selectedPhone);
-        }//kiểm tra có phone trên thanh địa chỉ hay không nếu có thì lấy phone rồi trả về dữ liệu
+        } //kiểm tra có phone trên thanh địa chỉ hay không nếu có thì lấy phone rồi trả về dữ liệu
 
-        $data = $query->paginate(10)->withQueryString();
+        $admins = $query->paginate(10)->withQueryString();
 
         $phones = $this->model->clone()
             ->where('role', '=', 1)
             ->pluck('phone');
 
         return view('admin.index', [
-            'data'          => $data,
+            'admins'          => $admins,
             'phones'        => $phones,
             'selectedPhone' => $selectedPhone,
         ]);

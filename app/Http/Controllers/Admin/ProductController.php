@@ -33,8 +33,10 @@ class ProductController extends Controller
         $arr = array_map('ucfirst', $arr); // viết hoa chữ cái đầu
         $title = implode(' - ', $arr); // nối nhau bằng dấu '-'
 
-        View::share('title',
-            $title); //chia sẻ title đến mọi nơi trong controller
+        View::share(
+            'title',
+            $title
+        ); //chia sẻ title đến mọi nơi trong controller
     }
 
     public function index()
@@ -52,8 +54,10 @@ class ProductController extends Controller
                 return route('products.edit', $object);
             })
             ->addColumn('destroy', function ($object) {
-                return route('products.destroy',
-                    $object);
+                return route(
+                    'products.destroy',
+                    $object
+                );
             })
             ->addColumn('category', function ($object) {
                 return $object->category->name;
@@ -65,23 +69,24 @@ class ProductController extends Controller
     {
         $categories = Category::query()->get();
 
-        return view('product.create', [
+        return view(
+            'product.create',
+            [
                 'categories' => $categories,
             ],
         );
     }
 
-    public function generateSlug(GenerateSlugRequest $request) : JsonResponse
+    public function generateSlug(GenerateSlugRequest $request): JsonResponse
     {
         try {
             $name = $request->get('name');
             $slug = SlugService::createSlug(Product::class, 'slug', $name);
 
             return $this->successResponse($slug);
-        } catch (\Throwable $e){
+        } catch (\Throwable $e) {
             return $this->errorResponse();
         }
-
     }
 
     public function store(StoreRequest $request)
@@ -105,12 +110,12 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update(UpdateRequest $request, $categoryId)
+    public function update(UpdateRequest $request, $productId)
     {
         $arr = $request->validated();
-        $object = $this->model->find($categoryId);
+        $object = $this->model->find($productId);
 
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $path = Storage::disk('public')->putFile('products', $request->file('image'));
 
             $arr['image'] = $path;

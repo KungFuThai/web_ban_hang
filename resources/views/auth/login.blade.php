@@ -9,7 +9,7 @@
 
     <!-- App css -->
     <link href="{{ asset('css/icons.min.css') }}" rel="stylesheet" type="text/css">
-{{--    <link href="{{ asset('css/app-creative.min.css') }}" rel="stylesheet" type="text/css">--}}
+    {{--    <link href="{{ asset('css/app-creative.min.css') }}" rel="stylesheet" type="text/css"> --}}
     <link href="{{ asset('css/app-creative-dark.min.css') }}" rel="stylesheet" type="text/css">
 
 </head>
@@ -39,7 +39,7 @@
                             <label for="password">Mật khẩu</label>
                             <div class="input-group input-group-merge">
                                 <input class="form-control" type="password" required id="password" name="password"
-                                       placeholder="Nhập mật khẩu của bạn" value="{{ old('password') }}">
+                                    placeholder="Nhập mật khẩu của bạn" value="{{ old('password') }}">
                                 <div class="input-group-append" data-password="false">
                                     <div class="input-group-text">
                                         <span class="password-eye"></span>
@@ -51,21 +51,20 @@
                             @endif
                         </div>
                         <div class="form-group mb-0 text-center">
-                            <button class="btn btn-primary btn-block" type="submit"><i class="mdi mdi-login"></i> Dăng Nhập</button>
+                            <button class="btn btn-primary btn-block" type="submit">
+                                <i class="mdi mdi-login"></i>
+                                Đăng Nhập
+                            </button>
                         </div>
                     </form>
-                    <!-- end form-->
-
-                </div> <!-- end .card-body -->
-            </div> <!-- end .align-items-center.d-flex.h-100-->
+                </div>
+            </div>
         </div>
-        <!-- end auth-fluid-form-box-->
-
-        <!-- Auth fluid right content -->
         <div class="auth-fluid-right text-center">
             <div class="auth-user-testimonial">
                 <h2 class="mb-3">Có làm thì mới có ăn!</h2>
-                <p class="lead"><i class="mdi mdi-format-quote-open"></i> Chăm chỉ là chìa khoá của thành công. <i class="mdi mdi-format-quote-close"></i>
+                <p class="lead"><i class="mdi mdi-format-quote-open"></i> Chăm chỉ là chìa khoá của thành công. <i
+                        class="mdi mdi-format-quote-close"></i>
                 </p>
                 <p>
                     2022
@@ -85,22 +84,23 @@
     <script src="{{ asset('js/app.min.js') }}"></script>
     <script>
         @if (session()->has('error'))
-        $.toast({
-            heading: 'Error',
-            text: '{{ session()->get('error') }}',
-            position: 'bottom-right',
-            icon: 'error',
-            stack: false
-        })
-        @elseif(session()->has('success'))
-        $.toast({
-            heading: 'Success',
-            text: '{{ session()->get('success') }}',
-            position: 'bottom-right',
-            icon: 'success',
-            stack: false
-        })
+            $.toast({
+                heading: 'Error',
+                text: '{{ session()->get('error') }}',
+                position: 'bottom-right',
+                icon: 'error',
+                stack: false
+            })
+        @elseif (session()->has('success'))
+            $.toast({
+                heading: 'Success',
+                text: '{{ session()->get('success') }}',
+                position: 'bottom-right',
+                icon: 'success',
+                stack: false
+            })
         @endif
     </script>
 </body>
+
 </html>

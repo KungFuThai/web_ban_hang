@@ -19,15 +19,15 @@ Route::post('reset-password/{token}', [AuthController::class, 'processResetPassw
 
 Route::get('/', [HomePageController::class, 'index'])->name('index');
 Route::get('/{product:slug}', [HomePageController::class, 'show'])->name('show');
-Route::post('/search',[HomePageController::class,'search'])->name('search');
+Route::post('/search', [HomePageController::class, 'search'])->name('search');
 
 Route::group([
     'middleware' => CheckCustomerLoginMiddleware::class,
 ], function () {
-    Route::post('/logout',[AuthController::class, 'logout'])->name('logout');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/view/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::get('/add-to-cart/{product}', [CartController::class, 'addToCart'])->name('card.add_to_cart');
+    Route::get('/add-to-cart/{product}', [CartController::class, 'addToCart'])->name('cart.add_to_cart');
     Route::patch('/update-cart', [CartController::class, 'updateQuantity'])->name('cart.update_quantity');
     Route::delete('/remove-from-cart', [CartController::class, 'removeFromCart'])->name('cart.remove_from_cart');
     Route::post('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');

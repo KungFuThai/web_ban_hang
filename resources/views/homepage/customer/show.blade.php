@@ -31,7 +31,7 @@
                 </div>
             </div><!--  end acordeon -->
             <div class="row text-right">
-                <a class="btn btn-info btn-round" href="{{ route('customer.card.add_to_cart', $product) }}">
+                <a class="btn btn-info btn-round" href="{{ route('customer.cart.add_to_cart', $product) }}">
                     Thêm vào giỏ hàng <i class="material-icons">shopping_cart</i>
                 </a>
             </div>
@@ -66,13 +66,13 @@
         <h3 class="title text-center">Bạn cũng có thể quan tâm:</h3>
 
         <div class="row">
-            @foreach($relateProducts as $relateProduct)
+            @foreach ($relateProducts as $relateProduct)
                 <div class="col-sm-6 col-md-3">
                     <div class="card card-product card-plain no-shadow" data-colored-shadow="false">
                         <div class="card-image" style="width: 262px !important; height: 274px !important;">
                             <a href="{{ route('customer.show', $relateProduct->slug) }}">
                                 <img src="{{ asset('storage') . '/' . $relateProduct->image }}"
-                                     style="width: 262px !important; height: 274px !important;">
+                                    style="width: 262px !important; height: 274px !important;">
                             </a>
                             <div class="ripple-container"></div>
                         </div>

@@ -53,8 +53,9 @@ class AuthController extends Controller
         $password = $request->get('password');
         $customerFind = Customer::query()
             ->where('email', $request->get('email'))
-            ->firstOrFail();
-        if ( ! Hash::check($password, $customerFind->password)) {
+            ->first();
+
+        if (!Hash::check($password, $customerFind->password)) {
             return redirect()->route('customer.login')->with('error', 'Sai cái gì đó rồi');
         }
 
@@ -87,23 +88,25 @@ class AuthController extends Controller
     {
         $email = $request->email;
         $forgetPassword = ForgetPassword::query()
-            ->firstOrCreate(['email' => $email],
+            ->firstOrCreate(
+                ['email' => $email],
                 [
                     'email' => $email,
                     'token' => Str::random(60),
-                ]);
+                ]
+            );
         Mail::send('homepage.auth.mail', compact('forgetPassword'), function ($email) use ($forgetPassword) {
-            $title = config('app.name').' '.'đổi mật khẩu';
-            $email->subject(config('app.name').' '.'đổi mật khẩu');
+            $title = config('app.name') . ' ' . 'đổi mật khẩu';
+            $email->subject(config('app.name') . ' ' . 'đổi mật khẩu');
             $email->to($forgetPassword->email);
         });
-        return redirect()->back()->with('success','Mail đã được gửi thành công bạn vui lòng kiểm tra mail của mình để thực hiện bước tiếp theo');
+        return redirect()->back()->with('success', 'Mail đã được gửi thành công bạn vui lòng kiểm tra mail của mình để thực hiện bước tiếp theo');
     }
 
     public function resetPassword(Request $request)
     {
         $token = $request->token;
-        if(ForgetPassword::where('token', $token )->exists()) {
+        if (ForgetPassword::where('token', $token)->exists()) {
             return view('homepage.auth.reset', [
                 'token' => $token,
             ]);
@@ -119,8 +122,8 @@ class AuthController extends Controller
         $customer = Customer::query()
             ->where('email', $email)
             ->update([
-            'password' => Hash::make($password),
-        ]);
+                'password' => Hash::make($password),
+            ]);
 
         ForgetPassword::query()->where('token', $token)->delete();
 

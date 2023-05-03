@@ -53,12 +53,6 @@ class ProductController extends Controller
             ->addColumn('edit', function ($object) {
                 return route('products.edit', $object);
             })
-            ->addColumn('destroy', function ($object) {
-                return route(
-                    'products.destroy',
-                    $object
-                );
-            })
             ->addColumn('category', function ($object) {
                 return $object->category->name;
             })
@@ -128,18 +122,5 @@ class ProductController extends Controller
         $object->update($arr);
 
         return redirect()->route('products.index')->with('success', 'Đã cập nhật sản phẩm thành công');
-    }
-
-    public function destroy(DestroyRequest $product, $productId)
-    {
-        $object = $this->model->find($productId); //tìm product để lấy link ảnh
-        //kiểm tra nếu tốn tài thì xoá
-        if (File::exists(public_path('storage/' . $object->image))) {
-            File::delete(public_path('storage/' . $object->image));
-        }
-
-        $object->delete();
-
-        return redirect()->back()->with('success', 'Đã xoá sản phẩm thành công');
     }
 }

@@ -31,9 +31,6 @@
                                     <th>Loại sản phẩm</th>
                                     <th>Được tạo lúc</th>
                                     <th>Chỉnh sửa</th>
-                                    @if(isSuperAdmin())
-                                        <th>Xoá</th>
-                                    @endif
                                 </tr>
                                 </thead>
                             </table>
@@ -96,22 +93,6 @@
                             return `<a class="btn btn-primary" href="${data}"><i class="mdi mdi-file-edit-outline"></i></a>`
                         }
                     },
-                    @if(isSuperAdmin())
-                    {
-                        data: 'destroy', name: 'delete',
-                        orderable: false,
-                        searchable: false,
-                        render: function (data, type, row, meta) {
-                            return `<form method="post" action="${data}" class="mb-0">
-                                    @csrf
-                            @method('DELETE')
-                            <button class="btn-delete btn btn-danger">
-                                <i class="mdi mdi-delete"></i>
-                            </button>
-                        </form>`
-                        }
-                    },
-                    @endif
                 ]
             });
         });

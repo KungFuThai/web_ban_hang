@@ -13,7 +13,7 @@ use App\Http\Middleware\CheckAdminLoginMiddleware;
 use App\Http\Middleware\CheckSuperAdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/test', [\App\Http\Controllers\TestController::class, 'index']);
+ Route::get('/test', [\App\Http\Controllers\TestController::class, 'index']);
 
 Route::group([
     'prefix' => 'admin'
@@ -124,11 +124,6 @@ Route::group([
                     ->name('destroy');
             });
             //end customer
-
-            Route::delete(
-                'products/{product}',
-                [ProductController::class, 'destroy']
-            )->name('products.destroy');
         });
     });
 });

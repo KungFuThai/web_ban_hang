@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use App\Enums\OrderStatusEnum;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
@@ -27,13 +29,13 @@ class Order extends Model
         return $this->BelongsTo(Customer::class);
     }
 
-    public function getTimeCreatedAtAttribute() : string
+    public function order_details(): HasMany
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
+
+    public function getTimeCreatedAtAttribute(): string
     {
         return $this->created_at->diffForHumans();
     }
-
-//    public function getStatusNameAttribute() : string
-//    {
-//        return OrderStatusEnum::getKeys($this->status)[0];
-//    }
 }

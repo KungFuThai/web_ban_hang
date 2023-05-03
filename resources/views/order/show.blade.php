@@ -21,7 +21,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($orderDetail as $each)
+                                @foreach ($order->order_details as $each)
                                     <tr>
                                         <td>
                                             <div class="img-container">
@@ -115,30 +115,30 @@
                 <div class="card-body">
                     <h4 class="header-title mb-3">Thông tin người đặt</h4>
 
-                    <h5>{{ $customer->full_name }}</h5>
+                    <h5>{{ $order->customer->full_name }}</h5>
 
                     <address class="mb-0 font-14 address-lg">
                         <p class="mb-2">
                             <span class="font-weight-bold mr-2">
                                 Email:
                             </span>
-                            <a href="tel:{{ $customer->email }}">
-                                {{ $customer->email }}
+                            <a href="tel:{{ $order->customer->email }}">
+                                {{ $order->customer->email }}
                             </a>
                         </p>
                         <p class="mb-2">
                             <span class="font-weight-bold mr-2">
                                 Số điện thoại:
                             </span>
-                            <a href="tel:{{ $customer->phone }}">
-                                {{ $customer->phone }}
+                            <a href="tel:{{ $order->customer->phone }}">
+                                {{ $order->customer->phone }}
                             </a>
                         </p>
                         <p class="mb-2">
                             <span class="font-weight-bold mr-2">
                                 Địa chỉ:
                             </span>
-                            {{ $customer->address }}
+                            {{ $order->customer->address }}
                         </p>
                     </address>
 

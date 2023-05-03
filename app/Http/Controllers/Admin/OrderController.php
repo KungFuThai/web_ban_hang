@@ -58,20 +58,12 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        $orderId = $order->id;
-        $customerId = $order->customer_id;
-
-        $orderDetail = OrderDetail::query()
-            ->where('order_id', $orderId)
-            ->with('product:id,name,image,price')
-            ->get();
-        $customer = Customer::query()
-            ->find( $customerId);
+        $order
+            ->with('customer')
+            ->with('order_details', 'order_details.product');
 
         return view("order.show", [
             'order' => $order,
-            'orderDetail' => $orderDetail,
-            'customer' => $customer,
         ]);
     }
 

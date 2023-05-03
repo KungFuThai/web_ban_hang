@@ -41,7 +41,6 @@
                     url: 'https://cdn.datatables.net/plug-ins/1.13.3/i18n/vi.json',
                 },
                 processing: true,
-                scrollY: '50vh',
                 order: [[ 0, 'desc' ]],
                 lengthMenu: [[10, 20, -1], [10, 20, "Tất cả"]],
                 ajax: '{!! route('activities.api') !!}',

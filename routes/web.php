@@ -23,7 +23,8 @@ Route::group([
     Route::get('/forget-password', [AuthController::class, 'forgetPassword'])->name('forget_password');
     Route::post('/forget-password', [AuthController::class, 'processForgetPassword'])->name('process_forget_password');
     Route::get('/reset-password/{token}', [AuthController::class, 'resetPassword'])->name('reset_password');
-    Route::post('/reset-password/{token}', [AuthController::class, 'processResetPassword'])->name('process_reset_password');
+    Route::post('/reset-password/{token}', [AuthController::class, 'processResetPassword'])
+        ->name('process_reset_password');
     //end admin auth
     Route::group([
         'middleware' => CheckAdminLoginMiddleware::class,
@@ -124,14 +125,6 @@ Route::group([
             });
             //end customer
 
-            Route::delete(
-                'producers/{producer}',
-                [ProducerController::class, 'destroy']
-            )->name('producers.destroy');
-            Route::delete(
-                'categories/{category}',
-                [CategoryController::class, 'destroy']
-            )->name('categories.destroy');
             Route::delete(
                 'products/{product}',
                 [ProductController::class, 'destroy']

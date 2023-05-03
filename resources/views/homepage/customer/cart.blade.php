@@ -12,74 +12,74 @@
             </h2>
         </div>
         <div class="col-md-10 col-md-offset-1">
-            @if(checkProductInCart())
+            @if (checkProductInCart())
                 <div class="table-responsive">
                     <table class="table table-shopping">
                         <thead>
-                        <tr>
-                            <th class="text-center"></th>
-                            <th>Sản phẩm</th>
-                            <th class="text-right">Giá</th>
-                            <th class="text-center">Số lượng</th>
-                            <th class="text-right">Tổng sản phẩm</th>
-                            <th></th>
-                        </tr>
+                            <tr>
+                                <th class="text-center"></th>
+                                <th>Sản phẩm</th>
+                                <th class="text-right">Giá</th>
+                                <th class="text-center">Số lượng</th>
+                                <th class="text-right">Tổng sản phẩm</th>
+                                <th></th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @php
-                            $total = 0;
-                        @endphp
-                        @foreach(session('cart') as $productId => $each)
-                            <span style="display:none;">{{ $total += ($each['price'] * $each['quantity']) }}</span>
-                            <tr>
-                                <td>
-                                    <div class="img-container">
-                                        <img src="{{ asset('storage') . '/' . $each['image'] }}">
-                                    </div>
-                                </td>
-                                <td class="td-name">
-                                    {{ $each['name'] }}
-                                </td>
-                                <td class="td-number">
-                                    <small>₫</small>
-                                    <span class="span-price">{{ $each['price'] }}</span>
-                                </td>
-                                <td class="td-actions">
-                                    <button class="btn-update-quantity btn btn-info btn-round btn-sm"
+                            @php
+                                $total = 0;
+                            @endphp
+                            @foreach (session('cart') as $productId => $each)
+                                <span style="display:none;">{{ $total += $each['price'] * $each['quantity'] }}</span>
+                                <tr>
+                                    <td>
+                                        <div class="img-container">
+                                            <img src="{{ asset('storage') . '/' . $each['image'] }}">
+                                        </div>
+                                    </td>
+                                    <td class="td-name">
+                                        {{ $each['name'] }}
+                                    </td>
+                                    <td class="td-number">
+                                        <small>₫</small>
+                                        <span class="span-price">{{ $each['price'] }}</span>
+                                    </td>
+                                    <td class="td-actions">
+                                        <button class="btn-update-quantity btn btn-info btn-round btn-sm"
                                             data-id='{{ $productId }}' data-type='0'>
-                                        <i class="material-icons">remove</i>
-                                    </button>
-                                    <span class="span-quantity">
-	 					                {{ $each['quantity'] }}
-	 				                </span>
-                                    <button class="btn-update-quantity btn btn-info btn-round btn-sm"
+                                            <i class="material-icons">remove</i>
+                                        </button>
+                                        <span class="span-quantity">
+                                            {{ $each['quantity'] }}
+                                        </span>
+                                        <button class="btn-update-quantity btn btn-info btn-round btn-sm"
                                             data-id='{{ $productId }}' data-type='1'>
-                                        <i class="material-icons">add</i>
-                                    </button>
-                                </td>
-                                <td class="td-number">
-                                    <small>₫</small>
-                                    <span class="span-sum">
-                                        {{ $each['price'] * $each['quantity'] }}
-                                    </span>
-                                </td>
-                                <td class="td-actions">
-                                    <button type="button" class="btn btn-danger btn-round remove-from-cart"
+                                            <i class="material-icons">add</i>
+                                        </button>
+                                    </td>
+                                    <td class="td-number">
+                                        <small>₫</small>
+                                        <span class="span-sum">
+                                            {{ $each['price'] * $each['quantity'] }}
+                                        </span>
+                                    </td>
+                                    <td class="td-actions">
+                                        <button type="button" class="btn btn-danger btn-round remove-from-cart"
                                             data-id='{{ $productId }}'>
-                                        <i class="material-icons">close</i>
-                                    </button>
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            <tr>
+                                <td class="td-total">
+                                    Tổng tiền hoá đơn:
+                                </td>
+                                <td colspan="3" class="td-price">
+                                    <small>₫</small>
+                                    <span id="span-total">{{ $total }}</span>
                                 </td>
                             </tr>
-                        @endforeach
-                        <tr>
-                            <td class="td-total">
-                                Tổng tiền hoá đơn:
-                            </td>
-                            <td colspan="3" class="td-price">
-                                <small>₫</small>
-                                <span id="span-total">{{ $total }}</span>
-                            </td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -94,7 +94,7 @@
             @endif
         </div>
     </div>
-    @if(checkProductInCart())
+    @if (checkProductInCart())
         <hr class="half-rule">
         <div class="row">
             <div class="col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-2">
@@ -109,19 +109,19 @@
                     <div class="form-group label-floating is-empty">
                         <label for="name_receiver">Tên người nhận</label>
                         <input type="text" name="name_receiver" class="form-control" placeholder="Tên người nhận..."
-                               value="{{ $customer->full_name ?? "" }}">
+                            value="{{ $customer->full_name ?? '' }}">
                         <span class="material-input"></span>
                     </div>
                     <div class="form-group label-floating is-empty">
                         <label for="address_receiver">Địa chỉ người nhận</label>
                         <input type="text" name="address_receiver" class="form-control"
-                               placeholder="Địa chỉ người nhận..." value="{{ $customer->address ?? "" }}">
+                            placeholder="Địa chỉ người nhận..." value="{{ $customer->address ?? '' }}">
                         <span class="material-input"></span>
                     </div>
                     <div class="form-group label-floating is-empty">
                         <label for="phone_receiver">Số điện thoại người nhận</label>
                         <input type="text" name="phone_receiver" class="form-control"
-                               placeholder="Số điện thoại người nhận..." value="{{ $customer->phone ?? "" }}">
+                            placeholder="Số điện thoại người nhận..." value="{{ $customer->phone ?? '' }}">
                         <span class="material-input"></span>
                     </div>
                     <div class="submit text-center">
@@ -137,20 +137,20 @@
 @endsection
 @push('js')
     <script type="text/javascript">
-        $(".btn-update-quantity").click(function () {
+        $(".btn-update-quantity").click(function() {
             let btn = $(this);
             let id = btn.data('id');
             let type = parseInt(btn.data('type'));
             $.ajax({
-                url: '{{ route('customer.cart.update_quantity') }}',
-                type: 'PATCH',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    id,
-                    type
-                },
-            })
-                .done(function () {
+                    url: '{{ route('customer.cart.update_quantity') }}',
+                    type: 'PATCH',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id,
+                        type
+                    },
+                })
+                .done(function() {
                     let parent_tr = btn.parents('tr');
                     let price = parent_tr.find('.span-price').text();
                     let quantity = parent_tr.find('.span-quantity').text();
@@ -170,18 +170,18 @@
                 });
         });
 
-        $(".remove-from-cart").click(function (e) {
+        $(".remove-from-cart").click(function(e) {
             let btn = $(this);
             let id = btn.data('id');
             $.ajax({
-                url: '{{ route('customer.cart.remove_from_cart') }}',
-                method: "DELETE",
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    id
-                },
-            })
-                .done(function () {
+                    url: '{{ route('customer.cart.remove_from_cart') }}',
+                    method: "DELETE",
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id
+                    },
+                })
+                .done(function() {
                     btn.parents('tr').remove();
                     getTotal();
                 });
@@ -189,7 +189,7 @@
 
         function getTotal() {
             let total = 0;
-            $(".span-sum").each(function () {
+            $(".span-sum").each(function() {
                 total += parseFloat($(this).text());
             });
             $("#span-total").text(total);

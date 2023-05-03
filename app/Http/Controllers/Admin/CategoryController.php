@@ -50,12 +50,6 @@ class CategoryController extends Controller
                     $object
                 );
             })
-            ->addColumn('destroy', function ($object) {
-                return route(
-                    'categories.destroy',
-                    $object
-                ); //client side rendering
-            })
             ->addColumn('producer', function ($object) {
                 return $object->producer->name;
             })
@@ -101,23 +95,5 @@ class CategoryController extends Controller
 
         return redirect()->route('categories.index')
             ->with('success', 'Cập nhật loại sản phẩm thành công');
-    }
-
-    public function destroy(DestroyRequest $request, $categoryId)
-    {
-        $productCount = Product::query()
-            ->where('category_id', $categoryId)
-            ->count();
-
-        if ($productCount === 0) {
-            $this->model
-                ->where('id', $categoryId)
-                ->delete();
-
-            return redirect()->back()
-                ->with('success', 'Xoá loại sản phẩm thành công!');
-        } else {
-            return redirect()->back()->with('error', 'Bạn cần xoá hết sản phẩm thuộc loại này trước khi xoá loại sản phẩm này!');
-        }
     }
 }

@@ -43,9 +43,6 @@ class ProducerController extends Controller
             ->addColumn('edit', function ($object) {
                 return route('producers.edit', $object); //server side rendering
             })
-            ->addColumn('destroy', function ($object) {
-                return route('producers.destroy', $object); //client side rendering
-            })
             ->make(true);
     }
 
@@ -77,25 +74,5 @@ class ProducerController extends Controller
             );
 
         return redirect()->route('producers.index');
-    }
-
-    public function destroy(DestroyRequest $request, $producerId)
-    {
-        $categoryCount = Category::query()
-            ->where('producer_id', $producerId)
-            ->count();
-
-        if ($categoryCount === 0) {
-            $this->model
-                ->where('id', $producerId)
-                ->delete();
-
-            return redirect()->back()->with('success', 'Xoá nhà sản xuất thành công');
-        } else {
-            return redirect()->back()->with(
-                'error',
-                'Bạn cần xoá toàn bộ loại sản phẩm từ nhà cung cấp này trước khi có thể xoá nhà cung cấp này!'
-            );
-        }
     }
 }

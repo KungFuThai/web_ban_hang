@@ -29,9 +29,6 @@
                                 <th>Địa chỉ</th>
                                 <th>Được tạo lúc</th>
                                 <th>Chỉnh sửa</th>
-                                @if(isSuperAdmin())
-                                    <th>Xoá</th>
-                                @endif
                             </tr>
                             </thead>
                         </table>
@@ -55,7 +52,7 @@
                     url: 'https://cdn.datatables.net/plug-ins/1.13.3/i18n/vi.json',
                 },
                 processing: true,
-                scrollY: '50vh',
+                order: [[ 0, 'desc' ]],
                 lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "Tất cả"]],
                 ajax: '{!! route('producers.api') !!}',
                 columns: [
@@ -72,22 +69,6 @@
                             return `<a class="btn btn-primary" href="${data}"><i class="mdi mdi-file-edit-outline"></i></i></a>`
                         }
                     },
-                        @if(isSuperAdmin())
-                    {
-                        data: 'destroy', name: 'delete',
-                        orderable: false,
-                        searchable: false,
-                        render: function (data) {
-                            return `<form method="post" action="${data}" class="mb-0">
-                                    @csrf
-                            @method('DELETE')
-                            <button class="btn-delete btn btn-danger">
-                                        <i class="mdi mdi-delete"></i>
-                                    </button>
-                        </form>`
-                        }
-                    },
-                    @endif
                 ]
             });
         });
